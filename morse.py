@@ -99,6 +99,36 @@ morse_table = {'a':'.-',     'b':'-...',   'c':'-.-.',  'd':'-..',
                '+':'.-.-.',  '-':'-....-', '_':'..--.-', '"':'.-..-.',
                '$':'...-..-','@':'.--.-.'}
 
+bookstable = { "0":"Zero","1":"One","2":"Two","3":"Three","4":"Four","5":"Five","6":"Six",
+      "7":"Seven",
+      "8":  "Eight",
+      "9":  "Nine",
+      "A":  "Alfa",
+      "B":  "Bravo",
+      "C":  "Charlie",
+      "D":  "Delta",  
+      "E":  "Echo",
+"F":   "Foxtrot",
+"G":   "Golf",
+"H":   "Hotel",
+"I":   "India",
+"J":   "Juliett",
+"K":   "Kilo", 
+"L":   "Lima",
+"M":   "Mike",
+"N":   "November", 
+"O":   "Oscar",  
+"P":   "Papa", 
+"Q":   "Quebec", 
+"R":   "Romeo", 
+"S":   "Sierra",
+"T":   "Tango", 
+"U":   "Uniform", 
+"V":   "Victor", 
+"W":   "Whiskey",
+"X":   "X-ray", 
+"Y":   "Yankee", 
+"Z":   "Zulu" }
 
 class WaveWriter:
     def __init__(self, filename):
@@ -201,7 +231,7 @@ class WaveMaker:
 
    def Speaky(self):
       print "Writing speech"
-      pp = os.popen ("espeak -f "+self.textfile+" -w "+self.speechfile)
+      pp = os.popen ("espeak -f "+self.textfile+" --stdout >> "+self.speechfile)
       pp.close()
 
    def WriteText(self):
@@ -216,13 +246,13 @@ class WaveMaker:
 
    def __del__(self):
       self.WriteText()
-      self.Speaky()
+#      self.Speaky()
       self.CompressAudio()
       self.Cleanup()
 
    def CompressAudio(self):
       print "Compressing now: "+self.filename
-      pp = os.popen ("cat "+self.filename+" "+self.speechfile+" | lame --quiet -h -b 16 -s 8 - "+self.mp3file)
+      #pp = os.popen ("cat "+self.filename+" "+self.speechfile+" | lame --quiet -h -b 16 -s 8 - "+self.mp3file)
       pp.close()
 
    def Dit(self):
@@ -275,7 +305,7 @@ class Koch:
 if len(sys.argv) > 1:
    if sys.argv[1] == "koch":
       # Create the koch lessons
-      for lesson in range(1,41):
+      for lesson in range(1,2):#9.#41)
          kk=Koch(lesson=lesson)
          for id in range(1,12):
             kk.Group(id=id)
