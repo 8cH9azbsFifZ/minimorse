@@ -236,11 +236,20 @@ class Koch:
          for i in range(0,length):
             grp+=choice(self.chars)
       w.Morse(grp)
-        
+
+
 ### Main stuff ###
-nn=n0hff()
-nn.Group()
-#for lesson in range(1,41):
-#   kk=Koch(lesson=lesson)
-#   for id in range(1,12):
-#      kk.Group(id=id)
+if os.argv[1] == "koch":
+   # Create the koch lessons
+   for lesson in range(1,41):
+      kk=Koch(lesson=lesson)
+      for id in range(1,12):
+         kk.Group(id=id)
+elif os.argv[1] == "n0hff":
+   # Create the n0hff lessons
+   for lesson in ["words100","words500","fixes","longwords"]:
+      nn=n0hff(lesson=lesson)
+      for id in range(1,12):
+         nn.Group(id=id)
+else:
+   print "call with: <koch|n0hff>"
