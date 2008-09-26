@@ -129,6 +129,9 @@ class WaveMaker:
       self.eff_speed=eff_speed
       self.volume=10.0**(float(vol)/20.0) * 32767.0
       self.filename = filename
+      self.textfile = filename.replace("wav","txt")
+      self.mp3file = filename.replace("wav","mp3")
+      self.speechfile = filename.replace("wav","speech")
 
       self.pcm = WaveWriter(filename)
       self.pcm.setchannels(channels)
@@ -185,16 +188,29 @@ class WaveMaker:
       # set buffer size:
       self.pcm.setperiodsize(self.buffer_len)
 
-   def __del__(self):
-      print "Compressing now: "+self.filename
-      pp = os.popen ("lame --quiet -h -b 16 -s 8 "+self.filename+" "+self.filename.replace("wav","mp3"))
+   def Speaky(self):
+      print "Writing speech"
+      pp = os.popen ("espeak -f "+self.textfile+" "+self.speechfile)
       pp.close()
-      qq = os.popen ("rm "+self.filename)
-      qq.close()
+
+   def WriteText(self):
       print "Saving sent text "
-      ff = open(self.filename.replace("wav","txt"),"w")
+      ff = open(self.textfile,"w")
       print >>ff, self.text
       ff.close()
+
+   def Cleanup(self):
+      pp = os.popen ("rm "+self.speechfile+" "+self.filename)
+      pp.close()
+
+   def __del__(self):
+      self.WriteText()
+      self.Speaky()
+
+   def CompressAudio(self):
+      print "Compressing now: "+self.filename
+      pp = os.popen ("lame --quiet -h -b 16 -s 8 "+self.filename+" "+self.mp3file)
+      pp.close()
 
    def Dit(self):
       self.pcm.write(self.dit_sample)
@@ -206,6 +222,7 @@ class WaveMaker:
       self.pcm.write(self.wpause_sample)
 
    def Morse(self,string):
+      print "Writing Morse"
       self.text+=string+" \n"
       for char in string:
          if char == " ":
