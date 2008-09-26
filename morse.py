@@ -142,6 +142,8 @@ class WaveMaker:
 
       self.text=str()
 
+      self.Countdown()
+
    def GenerateSamples(self):
       # pre-calculate some stuff:
       omega = 2.*pi*self.frequency/self.sample_rate  # jupp it is Omega
@@ -187,6 +189,15 @@ class WaveMaker:
 
       # set buffer size:
       self.pcm.setperiodsize(self.buffer_len)
+
+   def Countdown(self):
+      self.Dit()
+      self.WordPause()
+      self.Dit()
+      self.WordPause()
+      self.Dit()
+      self.WordPause()
+      self.WordPause()
 
    def Speaky(self):
       print "Writing speech"
@@ -249,7 +260,7 @@ class Koch:
       self.eff_speed = eff_speed
       self.chars = self.chars[:lesson]
 
-   def Group(self,length=5,count=10,id=1):
+   def Group(self,length=5,count=30,id=1):
       filename="koch."+str(self.lesson)+".groups"+str(length)+"."+str(id)+".wav"
       w=WaveMaker(filename=filename,frequency=self.frequency,speed=self.speed,eff_speed=self.eff_speed)
       grp=str()
@@ -273,6 +284,6 @@ if len(sys.argv) > 1:
       for lesson in ["words100","words500","fixes","longwords"]:
          nn=n0hff(lesson=lesson)
          for id in range(1,12):
-            nn.Group(id=id,count=2)
+            nn.Group(id=id,count=10)
 else:
    print "call with: <koch|n0hff>"
