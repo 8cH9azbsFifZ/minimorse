@@ -190,7 +190,7 @@ class WaveMaker:
 
    def Speaky(self):
       print "Writing speech"
-      pp = os.popen ("espeak -f "+self.textfile+" "+self.speechfile)
+      pp = os.popen ("espeak -f "+self.textfile+" -w "+self.speechfile)
       pp.close()
 
    def WriteText(self):
@@ -206,10 +206,12 @@ class WaveMaker:
    def __del__(self):
       self.WriteText()
       self.Speaky()
+      self.CompressAudio()
+      self.Cleanup()
 
    def CompressAudio(self):
       print "Compressing now: "+self.filename
-      pp = os.popen ("lame --quiet -h -b 16 -s 8 "+self.filename+" "+self.mp3file)
+      pp = os.popen ("cat "+self.filename+" "+self.speechfile+" | lame --quiet -h -b 16 -s 8 - "+self.mp3file)
       pp.close()
 
    def Dit(self):
