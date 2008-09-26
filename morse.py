@@ -249,7 +249,7 @@ if len(sys.argv) > 1:
    elif sys.argv[1] == "n0hff":
       # Create the n0hff lessons
       for lesson in ["words100","words500","fixes","longwords"]:
-         nn=n0hff(lesson=lesson)
+         nn=n0hff(lesson=lesson,count=1)
          for id in range(1,12):
             nn.Group(id=id)
 else:
