@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import wave, struct, os
+import wave, struct, os, sys
 from math import *
 from random import randint, choice #picker
 
@@ -239,17 +239,18 @@ class Koch:
 
 
 ### Main stuff ###
-if os.argv[1] == "koch":
-   # Create the koch lessons
-   for lesson in range(1,41):
-      kk=Koch(lesson=lesson)
-      for id in range(1,12):
-         kk.Group(id=id)
-elif os.argv[1] == "n0hff":
-   # Create the n0hff lessons
-   for lesson in ["words100","words500","fixes","longwords"]:
-      nn=n0hff(lesson=lesson)
-      for id in range(1,12):
-         nn.Group(id=id)
+if len(sys.argv) > 1:
+   if sys.argv[1] == "koch":
+      # Create the koch lessons
+      for lesson in range(1,41):
+         kk=Koch(lesson=lesson)
+         for id in range(1,12):
+            kk.Group(id=id)
+   elif sys.argv[1] == "n0hff":
+      # Create the n0hff lessons
+      for lesson in ["words100","words500","fixes","longwords"]:
+         nn=n0hff(lesson=lesson)
+         for id in range(1,12):
+            nn.Group(id=id)
 else:
    print "call with: <koch|n0hff>"
