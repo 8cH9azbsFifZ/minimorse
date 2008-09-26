@@ -1,6 +1,7 @@
 Mini-Morse
 ==========
 
+
 Description
 ===========
 This small python script will generate mp3 and corresponding text files
@@ -9,13 +10,19 @@ teaching the characters and the method described in (2) for improving
 the skills even more. Parts of the code are based on this (3) very nice
 program.
 
+
 Dependencies
 ============
 - python
 - lame
 
+
 Usage
 =====
+- Create kochs files:
+   morse.py koch
+  Create n0hffs files:
+   morse.py n0hff
 - Read the script and use it ;)
 
 
