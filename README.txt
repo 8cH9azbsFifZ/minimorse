@@ -9,12 +9,13 @@ for learning / training the morse code. It follows the method (1) for
 teaching the characters and the method described in (2) for improving
 the skills even more. Parts of the code are based on this (3) very nice
 program.
-
+The morsed stuff will be spoken afterwards in the audio file
 
 Dependencies
 ============
 - python
 - lame
+- espeak
 
 
 Usage
