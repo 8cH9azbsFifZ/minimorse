@@ -58,7 +58,10 @@ class n0hff:
       
       self.words500=self.words500_3+self.words500_4+self.words500_5+self.words500_6+self.words500_7+self.words500_8
       self.fixes=self.prefixes+self.suffixes
-      
+
+      self.SetLesson()
+   
+   def SetLesson(self):
       if lesson == "all":
          self.words=self.words500+self.fixes+self.longwords+self.words100
       elif lesson == "words100":
@@ -249,8 +252,8 @@ if len(sys.argv) > 1:
    elif sys.argv[1] == "n0hff":
       # Create the n0hff lessons
       for lesson in ["words100","words500","fixes","longwords"]:
-         nn=n0hff(lesson=lesson,count=1)
+         nn=n0hff(lesson=lesson)
          for id in range(1,12):
-            nn.Group(id=id)
+            nn.Group(id=id,count=1)
 else:
    print "call with: <koch|n0hff>"
