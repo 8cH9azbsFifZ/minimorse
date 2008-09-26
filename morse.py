@@ -50,6 +50,35 @@ class n0hff:
    "together"]
    words500_8=["important","themselves","Washington","government","something","condition","president"]
 
+   def __init__(self,frequency=750.,speed=25.,eff_speed=25.,lesson="all"):
+      self.frequency = frequency
+      self.speed = speed
+      self.eff_speed = eff_speed
+      
+      self.words500=self.words500_3+self.words500_4+self.words500_5+self.words500_6+self.words500_7+self.words500_8
+      self.fixes=self.prefixes+self.suffixes
+      
+      if lesson == "all":
+         self.words=self.words500+self.fixes+self.longwords+self.words100
+      elif lesson == "words100":
+         self.words=self.words100
+      elif lesson == "fixes":
+         self.words=self.fixes
+      elif lesson == "longwords":
+         self.words = self.longwords
+      elif lesson == "words500":
+         self.words = self.words500
+
+   def Group(self,length=5,count=10,id=1):
+      filename="n0hff."+str(self.lesson)+".groups"+str(length)+"."+str(id)+".wav"
+      w=WaveMaker(filename=filename,frequency=self.frequency,speed=self.speed,eff_speed=self.eff_speed)
+      grp=str()
+      for j in range(0,count):
+         grp+=" "
+         for i in range(0,length):
+            grp+=choice(self.chars)
+      w.Morse(grp)
+ 
 morse_table = {'a':'.-',     'b':'-...',   'c':'-.-.',  'd':'-..',
                'e':'.',      'f':'..-.',   'g':'--.',    'h':'....',
                'i':'..',     'j':'.---',   'k':'-.-',    'l':'.-..',
