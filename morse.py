@@ -54,6 +54,7 @@ class n0hff:
       self.frequency = frequency
       self.speed = speed
       self.eff_speed = eff_speed
+      self.lesson=lesson
       
       self.words500=self.words500_3+self.words500_4+self.words500_5+self.words500_6+self.words500_7+self.words500_8
       self.fixes=self.prefixes+self.suffixes
@@ -76,9 +77,10 @@ class n0hff:
       for j in range(0,count):
          grp+=" "
          for i in range(0,length):
-            grp+=choice(self.chars)
+            grp+=choice(self.words).lower()+" "
       w.Morse(grp)
- 
+
+
 morse_table = {'a':'.-',     'b':'-...',   'c':'-.-.',  'd':'-..',
                'e':'.',      'f':'..-.',   'g':'--.',    'h':'....',
                'i':'..',     'j':'.---',   'k':'-.-',    'l':'.-..',
@@ -236,7 +238,9 @@ class Koch:
       w.Morse(grp)
         
 ### Main stuff ###
-for lesson in range(1,41):
-   kk=Koch(lesson=lesson)
-   for id in range(1,12):
-      kk.Group(id=id)
+nn=n0hff()
+nn.Group()
+#for lesson in range(1,41):
+#   kk=Koch(lesson=lesson)
+#   for id in range(1,12):
+#      kk.Group(id=id)
