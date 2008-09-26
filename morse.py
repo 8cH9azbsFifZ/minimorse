@@ -254,6 +254,6 @@ if len(sys.argv) > 1:
       for lesson in ["words100","words500","fixes","longwords"]:
          nn=n0hff(lesson=lesson)
          for id in range(1,12):
-            nn.Group(id=id,count=1)
+            nn.Group(id=id,count=2)
 else:
    print "call with: <koch|n0hff>"
