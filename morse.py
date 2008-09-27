@@ -229,6 +229,9 @@ class WaveMaker:
    def CompressAudio(self):
       print "Compressing now: "+self.filename
       #pp = os.popen ("cat "+self.filename+" "+self.speechfile+" | lame --quiet -h -b 16 -s 8 - "+self.mp3file)
+      # --tt title --ta artist  --tl album --ty year --tc comment --tn track[/total] 
+
+
       pp.close()
 
    def Dit(self):
