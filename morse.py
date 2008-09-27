@@ -294,17 +294,15 @@ class Koch:
    chars = "kmrsuaptlowi.njef0yv,g5/q9zh38b?427c1d6x"
 
    def __init__(self,lesson=1,frequency=750.,speed=25.,eff_speed=15.0):
-      self.lesson = lesson
       self.frequency = frequency
       self.speed = speed
       self.eff_speed = eff_speed
-      self.chars = self.chars[:lesson]
-      self.album="Koch Method Trainer"
+      self.SetLesson(lesson)
 
    def Group(self,length=5,count=30,id=1):
       filename="koch."+str(self.lesson)+".groups"+str(length)+"."+str(id)+".wav"
       w=WaveMaker(filename=filename,frequency=self.frequency,speed=self.speed,eff_speed=self.eff_speed,
-            track=str(self.lesson),album=self.album,title="Lesson "+str(self.lesson))
+            track=str(id+1),album=self.album,title="Group "+str(id))
       grp=str()
       for j in range(0,count):
          grp+=" "
@@ -315,26 +313,36 @@ class Koch:
    def NewChar(self,count=10):
       filename="koch."+str(self.lesson)+".newchar.wav"
       w=WaveMaker(filename=filename,frequency=self.frequency,speed=self.speed,eff_speed=self.eff_speed,
-            track=str(self.lesson),album=self.album,title="Lesson "+str(self.lesson)+" New char: "+self.chars[-1])
+            track=str(1),album=self.album,title="New char: "+self.curchar)
       grp=str()
       for i in range(0,count):
-         grp+=self.chars[-1]
+         grp+=self.curchar
          grp+=" "
       for i in range(0,count):
-         grp+=self.chars[-1]
+         grp+=self.curchar
       w.Morse(grp)
+
+   def SetLesson(self,lesson):
+      self.lesson = lesson
+      self.chars = self.chars[:lesson]
+      self.curchar = self.chars[-1]
+      self.album = "Koch - Lesson "+str(lesson)+" Char "+self.curchar
+
+   def MakeTutorial(self,ngroups=5):
+      for lesson in range(1,41):
+         self.SetLesson(lesson)
+         kk.NewChar()
+         for id in range(1,ngroups):
+            kk.Group(id=id)
+
 
 
 
 ### Main stuff ###
 if len(sys.argv) > 1:
    if sys.argv[1] == "koch":
-      # Create the koch lessons
-      for lesson in range(1,41):
-         kk=Koch(lesson=lesson)
-         kk.NewChar()
-         for id in range(1,5):
-            kk.Group(id=id)
+      kk=Koch()
+      kk.MakeTutorial()
    elif sys.argv[1] == "n0hff":
       # Create the n0hff lessons
       for lesson in ["words100","words500","fixes","longwords"]:
