@@ -102,9 +102,9 @@ morse_table = {'a':'.-',     'b':'-...',   'c':'-.-.',  'd':'-..',
 bookstable = { "0":"Zero","1":"One","2":"Two","3":"Three","4":"Four","5":"Five","6":"Six",
                "7":"Seven", "8":  "Eight", "9":  "Nine", "A":  "Alfa", "B":  "Bravo",
                "C":  "Charlie", "D":  "Delta",   "E":  "Echo","F":   "Foxtrot","G":   "Golf","H":   "Hotel",
-"I":   "India","J":   "Juliett","K":   "Kilo", "L":   "Lima","M":   "Mike","N":   "November", "O":   "Oscar",  
-"P":   "Papa", "Q":   "Quebec", "R":   "Romeo", "S":   "Sierra","T":   "Tango", "U":   "Uniform", "V":   "Victor", 
-"W":   "Whiskey","X":   "X-ray", "Y":   "Yankee", "Z":   "Zulu" }
+               "I":   "India","J":   "Juliett","K":   "Kilo", "L":   "Lima","M":   "Mike","N":   "November", "O":   "Oscar",  
+               "P":   "Papa", "Q":   "Quebec", "R":   "Romeo", "S":   "Sierra","T":   "Tango", "U":   "Uniform", "V":   "Victor", 
+               "W":   "Whiskey","X":   "X-ray", "Y":   "Yankee", "Z":   "Zulu" }
 
 class WaveWriter:
     def __init__(self, filename):
@@ -209,11 +209,6 @@ class WaveMaker:
       self.WordPause()
       self.WordPause()
 
-   def Speaky(self):
-      print "Writing speech"
-      pp = os.popen ("espeak -f "+self.textfile+" --stdout >> "+self.speechfile)
-      pp.close()
-
    def WriteText(self):
       print "Saving sent text "
       ff = open(self.textfile,"w")
@@ -227,18 +222,18 @@ class WaveMaker:
    def __del__(self):
       self.WriteText()
       self.Speaky()
-      self.CompressAudio()
-      self.Cleanup()
+#      self.CompressAudio()
+#      self.Cleanup()
 
    def CompressAudio(self):
       print "Compressing now: "+self.filename
       artist = "Mini-Morse"
       year="2008"
-      comment="-"
       track=self.track
-      album=self.album
-      title=self.title
-      lame="lame --quiet -h -b 16 -s 8 --tt "+title+" --ta "+artist+" --tl "+album+" --ty "+year+" --tc "+comment+" --tn "+track+" "
+      album="\""+self.album+"\""
+      title="\""+self.title+"\""
+      comment="none" #"\""+self.text+"\""
+      lame="lame -h -b 16 -s 8 --tt "+title+" --ta "+artist+" --tl "+album+" --ty "+year+" --tn "+track+" --tc "+comment+" "
       pp = os.popen ("sox "+self.filename+" "+self.speechfile+" -t wav -s -w - | "+lame+" - "+self.mp3file)
       pp.close()
 
@@ -266,6 +261,23 @@ class WaveMaker:
             self.CharPause()
          else:
             print "Unknown char: "+char
+
+   def Speaky(self):
+      print "Writing speech"
+      speech=str()
+      for char in self.text.upper():
+         if char == " ":
+            speech+=" "
+         elif char in bookstable.keys():
+            speech+=bookstable[char]
+         else:
+            print "Unknown char: "+char
+      pp = os.popen ("espeak --stdin --stdout >> "+self.speechfile,"w")
+      print >>pp,speech
+      pp.write(EOF)
+#      pp = os.popen ("espeak -f "+self.textfile+" --stdout >> "+self.speechfile)
+      pp.close()
+
 
 class Koch:
    chars = "kmrsuaptlowi.njef0yv,g5/q9zh38b?427c1d6x"
