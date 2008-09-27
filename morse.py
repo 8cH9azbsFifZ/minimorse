@@ -318,10 +318,10 @@ class Koch:
             track=str(self.lesson),album=self.album,title="Lesson "+str(self.lesson)+" New char: "+self.chars[-1])
       grp=str()
       for i in range(0,count):
-         grp+=choice(self.chars)
+         grp+=self.chars[-1]
          grp+=" "
       for i in range(0,count):
-         grp+=choice(self.chars)
+         grp+=self.chars[-1]
       w.Morse(grp)
 
 
