@@ -128,8 +128,8 @@ class WaveWriter:
         self.__wav.writeframes(data)
 
 class WaveMaker:
-   def __init__(self,filename="test.wav",sample_rate = 22050.,frequency=750.0,speed=25.0,eff_speed=15.0,vol=-10.,channels=1):
-      self.sample_rate=sample_rate
+   def __init__(self,filename="test.wav",frequency=750.0,speed=25.0,eff_speed=15.0,vol=-10.,channels=1,title="none",track="1",album="none"):
+      self.sample_rate=22050. # let fixed cuz of espeak!
       self.frequency=frequency
       self.speed=speed
       self.eff_speed=eff_speed
@@ -147,6 +147,10 @@ class WaveMaker:
       self.GenerateSamples()
 
       self.text=str()
+
+      self.album=album #id3 tag stuff
+      self.title=title
+      self.track=track
 
       self.Countdown()
 
@@ -228,10 +232,14 @@ class WaveMaker:
 
    def CompressAudio(self):
       print "Compressing now: "+self.filename
-      pp = os.popen ("sox "+self.filename+" "+self.speechfile+" -t wav -s -w - | lame --quiet -h -b 16 -s 8 - "+self.mp3file)
-      # --tt title --ta artist  --tl album --ty year --tc comment --tn track[/total] 
-
-
+      artist = "Mini-Morse"
+      year="2008"
+      comment="-"
+      track=self.track
+      album=self.album
+      title=self.title
+      lame="lame --quiet -h -b 16 -s 8 --tt "+title+" --ta "+artist+" --tl "+album+" --ty "+year+" --tc "+comment+" --tn "+track+" "
+      pp = os.popen ("sox "+self.filename+" "+self.speechfile+" -t wav -s -w - | "+lame+" - "+self.mp3file)
       pp.close()
 
    def Dit(self):
@@ -271,7 +279,8 @@ class Koch:
 
    def Group(self,length=5,count=30,id=1):
       filename="koch."+str(self.lesson)+".groups"+str(length)+"."+str(id)+".wav"
-      w=WaveMaker(filename=filename,frequency=self.frequency,speed=self.speed,eff_speed=self.eff_speed)
+      w=WaveMaker(filename=filename,frequency=self.frequency,speed=self.speed,eff_speed=self.eff_speed,
+            track=str(self.lesson),album="Koch Method Trainer",title=str(self.lesson))
       grp=str()
       for j in range(0,count):
          grp+=" "
