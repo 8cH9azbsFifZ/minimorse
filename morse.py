@@ -240,7 +240,7 @@ class WaveMaker:
       album="\""+self.album+"\""
       title="\""+self.title+"\""
       comment="none" #"\""+self.text+"\""
-      lame="lame -h -v -B 64 -s 8 --tt "+title+" --ta "+artist+" --tl "+album+" --ty "+year+" --tn "+track+" --tc "+comment+" "
+      lame="lame -h -v -s 8 --tt "+title+" --ta "+artist+" --tl "+album+" --ty "+year+" --tn "+track+" --tc "+comment+" "
       pp = os.popen ("sox "+self.filename+" "+self.speechfile+" -t wav -s -w - | "+lame+" - "+self.mp3file)
       pp.close()
 
@@ -291,7 +291,7 @@ class WaveMaker:
 
 
 class Koch:
-   chars = "kmrsuaptlowi.njef0yv,g5/q9zh38b?427c1d6x"
+   kochchars = "kmrsuaptlowi.njef0yv,g5/q9zh38b?427c1d6x"
 
    def __init__(self,lesson=1,frequency=750.,speed=25.,eff_speed=15.0):
       self.frequency = frequency
@@ -324,7 +324,7 @@ class Koch:
 
    def SetLesson(self,lesson):
       self.lesson = lesson
-      self.chars = self.chars[:lesson]
+      self.chars = self.kochchars[:lesson]
       self.curchar = self.chars[-1]
       self.album = "Koch - Lesson "+str(lesson)+" Char "+self.curchar
 
