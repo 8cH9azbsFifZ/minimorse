@@ -240,7 +240,7 @@ class WaveMaker:
       album="\""+self.album+"\""
       title="\""+self.title+"\""
       comment="none" #"\""+self.text+"\""
-      lame="lame -h -b 16 -s 8 --tt "+title+" --ta "+artist+" --tl "+album+" --ty "+year+" --tn "+track+" --tc "+comment+" "
+      lame="lame -h -v -B 64 -s 8 --tt "+title+" --ta "+artist+" --tl "+album+" --ty "+year+" --tn "+track+" --tc "+comment+" "
       pp = os.popen ("sox "+self.filename+" "+self.speechfile+" -t wav -s -w - | "+lame+" - "+self.mp3file)
       pp.close()
 
@@ -287,7 +287,7 @@ class WaveMaker:
       pp = os.popen ("espeak -f "+tmpfile+" --stdout >> "+self.speechfile)
 #      pp = os.popen ("espeak -f "+self.textfile+" --stdout >> "+self.speechfile) #speak only characters :)
       pp.close()
-#      pp = os.popen("rm "+tmpfile)
+      pp = os.popen("rm "+tmpfile)
 
 
 class Koch:
@@ -299,17 +299,31 @@ class Koch:
       self.speed = speed
       self.eff_speed = eff_speed
       self.chars = self.chars[:lesson]
+      self.album="Koch Method Trainer"
 
    def Group(self,length=5,count=30,id=1):
       filename="koch."+str(self.lesson)+".groups"+str(length)+"."+str(id)+".wav"
       w=WaveMaker(filename=filename,frequency=self.frequency,speed=self.speed,eff_speed=self.eff_speed,
-            track=str(self.lesson),album="Koch Method Trainer",title=str(self.lesson))
+            track=str(self.lesson),album=self.album,title="Lesson "+str(self.lesson))
       grp=str()
       for j in range(0,count):
          grp+=" "
          for i in range(0,length):
             grp+=choice(self.chars)
       w.Morse(grp)
+
+   def NewChar(self,count=10):
+      filename="koch."+str(self.lesson)+".newchar.wav"
+      w=WaveMaker(filename=filename,frequency=self.frequency,speed=self.speed,eff_speed=self.eff_speed,
+            track=str(self.lesson),album=self.album,title="Lesson "+str(self.lesson)+" New char: "+self.chars[-1])
+      grp=str()
+      for i in range(0,count):
+         grp+=choice(self.chars)
+         grp+=" "
+      for i in range(0,count):
+         grp+=choice(self.chars)
+      w.Morse(grp)
+
 
 
 ### Main stuff ###
@@ -318,6 +332,7 @@ if len(sys.argv) > 1:
       # Create the koch lessons
       for lesson in range(1,41):
          kk=Koch(lesson=lesson)
+         kk.NewChar()
          for id in range(1,5):
             kk.Group(id=id)
    elif sys.argv[1] == "n0hff":
