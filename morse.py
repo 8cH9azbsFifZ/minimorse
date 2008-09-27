@@ -201,11 +201,17 @@ class WaveMaker:
       self.pcm.setperiodsize(self.buffer_len)
 
    def Countdown(self):
-      self.Dit()
+      self.WordPause()
+      self.WordPause()
+      self.WordPause()
       self.WordPause()
       self.Dit()
       self.WordPause()
       self.Dit()
+      self.WordPause()
+      self.Dit()
+      self.WordPause()
+      self.WordPause()
       self.WordPause()
       self.WordPause()
 
@@ -220,6 +226,7 @@ class WaveMaker:
       pp.close()
 
    def __del__(self):
+      self.Countdown()
       self.WriteText()
       self.Speaky()
       self.CompressAudio()
@@ -272,14 +279,15 @@ class WaveMaker:
             speech+=bookstable[char]
          else:
             print "Unknown char: "+char
+         speech+=" "
       tmpfile="tempfile.txt"
       ff = open (tmpfile,"w")
       print >>ff,speech
       ff.close()
       pp = os.popen ("espeak -f "+tmpfile+" --stdout >> "+self.speechfile)
-#      pp = os.popen ("espeak -f "+self.textfile+" --stdout >> "+self.speechfile)
+#      pp = os.popen ("espeak -f "+self.textfile+" --stdout >> "+self.speechfile) #speak only characters :)
       pp.close()
-      pp = os.popen("rm "+tmpfile)
+#      pp = os.popen("rm "+tmpfile)
 
 
 class Koch:
@@ -308,9 +316,9 @@ class Koch:
 if len(sys.argv) > 1:
    if sys.argv[1] == "koch":
       # Create the koch lessons
-      for lesson in range(1,2):#9.#41)
+      for lesson in range(1,41):
          kk=Koch(lesson=lesson)
-         for id in range(1,2):#12):
+         for id in range(1,5):
             kk.Group(id=id)
    elif sys.argv[1] == "n0hff":
       # Create the n0hff lessons
