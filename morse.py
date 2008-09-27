@@ -222,8 +222,8 @@ class WaveMaker:
    def __del__(self):
       self.WriteText()
       self.Speaky()
-#      self.CompressAudio()
-#      self.Cleanup()
+      self.CompressAudio()
+      self.Cleanup()
 
    def CompressAudio(self):
       print "Compressing now: "+self.filename
@@ -272,11 +272,14 @@ class WaveMaker:
             speech+=bookstable[char]
          else:
             print "Unknown char: "+char
-      pp = os.popen ("espeak --stdin --stdout >> "+self.speechfile,"w")
-      print >>pp,speech
-      pp.write(EOF)
+      tmpfile="tempfile.txt"
+      ff = open (tmpfile,"w")
+      print >>ff,speech
+      ff.close()
+      pp = os.popen ("espeak -f "+tmpfile+" --stdout >> "+self.speechfile)
 #      pp = os.popen ("espeak -f "+self.textfile+" --stdout >> "+self.speechfile)
       pp.close()
+      pp = os.popen("rm "+tmpfile)
 
 
 class Koch:
