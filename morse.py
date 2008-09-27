@@ -222,13 +222,13 @@ class WaveMaker:
 
    def __del__(self):
       self.WriteText()
-#      self.Speaky()
+      self.Speaky()
       self.CompressAudio()
       self.Cleanup()
 
    def CompressAudio(self):
       print "Compressing now: "+self.filename
-      #pp = os.popen ("cat "+self.filename+" "+self.speechfile+" | lame --quiet -h -b 16 -s 8 - "+self.mp3file)
+      pp = os.popen ("sox "+self.filename+" "+self.speechfile+" -t wav -s -w - | lame --quiet -h -b 16 -s 8 - "+self.mp3file)
       # --tt title --ta artist  --tl album --ty year --tc comment --tn track[/total] 
 
 
@@ -286,7 +286,7 @@ if len(sys.argv) > 1:
       # Create the koch lessons
       for lesson in range(1,2):#9.#41)
          kk=Koch(lesson=lesson)
-         for id in range(1,12):
+         for id in range(1,2):#12):
             kk.Group(id=id)
    elif sys.argv[1] == "n0hff":
       # Create the n0hff lessons
