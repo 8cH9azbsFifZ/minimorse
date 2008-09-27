@@ -128,7 +128,7 @@ class WaveWriter:
         self.__wav.writeframes(data)
 
 class WaveMaker:
-   def __init__(self,filename="test.wav",sample_rate = 48000.0,frequency=750.0,speed=25.0,eff_speed=15.0,vol=-10.,channels=1):
+   def __init__(self,filename="test.wav",sample_rate = 22050.,frequency=750.0,speed=25.0,eff_speed=15.0,vol=-10.,channels=1):
       self.sample_rate=sample_rate
       self.frequency=frequency
       self.speed=speed
