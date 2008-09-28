@@ -240,7 +240,7 @@ class WaveMaker:
       album="\""+self.album+"\""
       title="\""+self.title+"\""
       comment="none" #"\""+self.text+"\""
-      lame="lame -h -v -s 8 --tt "+title+" --ta "+artist+" --tl "+album+" --ty "+year+" --tn "+track+" --tc "+comment+" "
+      lame="lame -m m -V 1 -B 16 -h -v -s 8 --tt "+title+" --ta "+artist+" --tl "+album+" --ty "+year+" --tn "+track+" --tc "+comment+" "
       pp = os.popen ("sox "+self.filename+" "+self.speechfile+" -t wav -s -w - | "+lame+" - "+self.mp3file)
       pp.close()
 
@@ -328,7 +328,7 @@ class Koch:
       self.curchar = self.chars[-1]
       self.album = "Koch - Lesson "+str(lesson)+" Char "+self.curchar
 
-   def MakeTutorial(self,ngroups=5):
+   def MakeTutorial(self,ngroups=7):
       for lesson in range(1,41):
          self.SetLesson(lesson)
          kk.NewChar()
