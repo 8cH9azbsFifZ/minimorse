@@ -1,2 +1,1 @@
-[[ -e n0hff* ]] && rm n0hff*
-[[ -e koch.* ]] && rm koch*
+rm n0hff* koch* *.wav
