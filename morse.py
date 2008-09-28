@@ -274,7 +274,7 @@ class WaveMaker:
       speech=str()
       for char in self.text.upper():
          if char == " ":
-            speech+=" "
+            speech+=". "
          elif char in bookstable.keys():
             speech+=bookstable[char]
          else:
@@ -334,9 +334,6 @@ class Koch:
          kk.NewChar()
          for id in range(1,ngroups):
             kk.Group(id=id)
-
-
-
 
 ### Main stuff ###
 if len(sys.argv) > 1:
