@@ -299,17 +299,17 @@ class Koch:
       self.eff_speed = eff_speed
       self.SetLesson(lesson)
 
-   def Group(self,length=5,count=30,id=1,distribution=Null):
+   def Group(self,length=5,count=30,id=1,distribution=None):
       filename="koch."+str(self.lesson)+".groups"+str(length)+"."+str(id)+".wav"
       w=WaveMaker(filename=filename,frequency=self.frequency,speed=self.speed,eff_speed=self.eff_speed,
             track=str(id+1),album=self.album,title="Group "+str(id))
       grp=str()
-      if distrubution:
+      if distribution:
          ccc=self.chars
       else:
          ccc=self.chars
          for i in range(0,len(ccc)):
-            ccc.append(self.curchar)
+            ccc+=self.curchar
       for j in range(0,count):
          grp+=" "
          for i in range(0,length):
