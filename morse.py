@@ -1,4 +1,7 @@
 #!/usr/bin/python
+# TODO:
+#  - Send the new character more often...
+
 import wave, struct, os, sys
 from math import *
 from random import randint, choice #picker
