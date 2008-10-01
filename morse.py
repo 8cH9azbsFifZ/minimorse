@@ -247,7 +247,7 @@ class WaveMaker:
       album="\""+self.album+"\""
       title="\""+self.title+"\""
       comment="none" #"\""+self.text+"\""
-      lame="lame -m m -V 1 -B 16 -h -v -s 8 --tt "+title+" --ta "+artist+" --tl "+album+" --ty "+year+" --tn "+track+" --tc "+comment+" "
+      lame="lame -m m -B 16 -b 16 --tt "+title+" --ta "+artist+" --tl "+album+" --ty "+year+" --tn "+track+" --tc "+comment+" "
       pp = os.popen ("sox "+self.filename+" "+self.speechfile+" -t wav -s -w - | "+lame+" - "+self.mp3file)
       pp.close()
 
