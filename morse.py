@@ -133,7 +133,7 @@ class WaveWriter:
         self.__wav.writeframes(data)
 
 class WaveMaker:
-   def __init__(self,filename="test.wav",frequency=750.0,speed=25.0,eff_speed=15.0,vol=-10.,channels=1,title="none",track="1",album="none"):
+   def __init__(self,filename="test.wav",frequency=750.0,speed=25.0,eff_speed=15.0,vol=-10.,channels=1,title="none",track="1",album="none",maketextfile=False):
       self.sample_rate=22050. # let fixed cuz of espeak!
       self.frequency=frequency
       self.speed=speed
@@ -152,6 +152,7 @@ class WaveMaker:
       self.GenerateSamples()
 
       self.text=str()
+      self.maketextfile=maketextfile
 
       self.album=album #id3 tag stuff
       self.title=title
@@ -232,7 +233,8 @@ class WaveMaker:
 
    def __del__(self):
       self.Countdown()
-      self.WriteText()
+      if self.maketextfile:
+         self.WriteText()
       self.Speaky()
       self.CompressAudio()
       self.Cleanup()
