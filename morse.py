@@ -386,7 +386,8 @@ if len(sys.argv) > 1:
          for id in range(1,12):
             nn.Group(id=id,count=10)
    elif sys.argv[1] == "straight100":
-      nn=n0hff(lesson="words100",pause=False)
+      lesson="words100"
+      nn=n0hff(lesson=lesson,pause=False)
       for id in range(1,100):
          nn.Group(id=id,count=1)
 else:
