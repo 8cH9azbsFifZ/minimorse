@@ -56,6 +56,8 @@ class n0hff:
       self.speed = speed
       self.eff_speed = eff_speed
       self.lesson=lesson
+
+      self.album="N0HFF - "+self.lesson
       
       self.words500=self.words500_3+self.words500_4+self.words500_5+self.words500_6+self.words500_7+self.words500_8
       self.fixes=self.prefixes+self.suffixes
@@ -76,7 +78,9 @@ class n0hff:
 
    def Group(self,length=5,count=10,id=1):
       filename="n0hff."+str(self.lesson)+".groups"+str(length)+"."+str(id)+".wav"
-      w=WaveMaker(filename=filename,frequency=self.frequency,speed=self.speed,eff_speed=self.eff_speed)
+      w=WaveMaker(filename=filename,frequency=self.frequency,speed=self.speed,eff_speed=self.eff_speed,
+            bookstable=False,
+            track=str(id),album=self.album,title=self.lesson+" "+str(id))
       grp=str()
       for j in range(0,count):
          grp+=" "
@@ -129,7 +133,7 @@ class WaveWriter:
         self.__wav.writeframes(data)
 
 class WaveMaker:
-   def __init__(self,filename="test.wav",frequency=750.0,speed=25.0,eff_speed=15.0,vol=-10.,channels=1,title="none",track="1",album="none",maketextfile=False,prespeaky=False,speaky=True):
+   def __init__(self,filename="test.wav",frequency=750.0,speed=25.0,eff_speed=15.0,vol=-10.,channels=1,title="none",track="1",album="none",maketextfile=False,prespeaky=False,speaky=True,bookstable=True):
       self.sample_rate=22050. # let fixed cuz of espeak!
       self.frequency=frequency
       self.speed=speed
@@ -151,6 +155,7 @@ class WaveMaker:
       self.maketextfile=maketextfile
       self.prespeaky=prespeaky
       self.speaky=speaky
+      self.bookstable=bookstable
 
       self.album=album #id3 tag stuff
       self.title=title
@@ -288,14 +293,17 @@ class WaveMaker:
       speech=str()
       if self.prespeaky:
          self.text=self.text[0]
-      for char in self.text.upper():
-         if char == " ":
-            speech+=". "
-         elif char in bookstable.keys():
-            speech+=bookstable[char]
-         else:
-            print "Unknown char: "+char
-         speech+=" "
+      if self.bookstable:
+         for char in self.text.upper():
+            if char == " ":
+               speech+=". "
+            elif char in bookstable.keys():
+               speech+=bookstable[char]
+            else:
+               print "Unknown char: "+char
+            speech+=" "
+      else:
+         speech=self.text            
       tmpfile="tempfile.txt"
       ff = open (tmpfile,"w")
       print >>ff,speech
