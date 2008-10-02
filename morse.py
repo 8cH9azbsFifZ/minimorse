@@ -133,7 +133,7 @@ class WaveWriter:
         self.__wav.writeframes(data)
 
 class WaveMaker:
-   def __init__(self,filename="test.wav",frequency=750.0,speed=25.0,eff_speed=15.0,vol=-10.,channels=1,title="none",track="1",album="none",maketextfile=False):
+   def __init__(self,filename="test.wav",frequency=750.0,speed=25.0,eff_speed=15.0,vol=-10.,channels=1,title="none",track="1",album="none",maketextfile=False,prespeaky=False,speaky=True):
       self.sample_rate=22050. # let fixed cuz of espeak!
       self.frequency=frequency
       self.speed=speed
@@ -153,6 +153,8 @@ class WaveMaker:
 
       self.text=str()
       self.maketextfile=maketextfile
+      self.prespeaky=prespeaky
+      self.speaky=speaky
 
       self.album=album #id3 tag stuff
       self.title=title
@@ -235,7 +237,8 @@ class WaveMaker:
       self.Countdown()
       if self.maketextfile:
          self.WriteText()
-      self.Speaky()
+      if self.speaky:
+         self.Speaky()
       self.CompressAudio()
       self.Cleanup()
 
@@ -248,7 +251,15 @@ class WaveMaker:
       title="\""+self.title+"\""
       comment="none" #"\""+self.text+"\""
       lame="lame -m m -B 16 -b 16 --tt "+title+" --ta "+artist+" --tl "+album+" --ty "+year+" --tn "+track+" --tc "+comment+" "
-      pp = os.popen ("sox "+self.filename+" "+self.speechfile+" -t wav -s -w - | "+lame+" - "+self.mp3file)
+      if self.speaky:
+         if self.prespeaky:
+            streamy="sox "+self.speechfile+" "+self.filename+" -t wav -s -w -"
+         else:
+            streamy="sox "+self.filename+" "+self.speechfile+" -t wav -s -w -"
+      else:
+         streamy="cat "++self.filename
+
+      pp = os.popen (streamy+" | "+lame+" - "+self.mp3file)
       pp.close()
 
    def Dit(self):
@@ -292,7 +303,6 @@ class WaveMaker:
       print >>ff,speech
       ff.close()
       pp = os.popen ("espeak -f "+tmpfile+" --stdout >> "+self.speechfile)
-#      pp = os.popen ("espeak -f "+self.textfile+" --stdout >> "+self.speechfile) #speak only characters :)
       pp.close()
       pp = os.popen("rm "+tmpfile)
 
