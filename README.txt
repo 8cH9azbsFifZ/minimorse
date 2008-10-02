@@ -9,7 +9,11 @@ for learning / training the morse code. It follows the method (1) for
 teaching the characters and the method described in (2) for improving
 the skills even more. Parts of the code are based on this (3) very nice
 program.
-The morsed stuff will be spoken afterwards in the audio file :)
+The morsed stuff will be spoken afterwards in the audio file :) 
+Once the mp3s are generated, you may play them back on any mp3 player.
+As meaningful id3 tags are inserted you easily may browse through all 
+lessons even on a mobile phone.
+
 
 Dependencies
 ============
@@ -22,9 +26,14 @@ Dependencies
 Usage
 =====
 - Create kochs files:
-   morse.py koch
-  Create n0hffs files:
-   morse.py n0hff
+     morse.py koch
+  This will generate mp3s for learning the morse code from scratch. The
+  koch method will be used with an effective farnsworth speed of 15wpm.
+  The characters itself will be morsed at 25wpm.
+- Create n0hffs files:
+     morse.py n0hff
+  This will generate mp3s for traning the morse code at the full 25wpm
+  speed. The 100/500 most used words and pre/suffixes are availiable.
 - Read the script and use it ;)
 
 
