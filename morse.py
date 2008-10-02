@@ -51,13 +51,14 @@ class n0hff:
    "together"]
    words500_8=["important","themselves","Washington","government","something","condition","president"]
 
-   def __init__(self,frequency=750.,speed=25.,eff_speed=25.,lesson="all"):
+   def __init__(self,frequency=750.,speed=25.,eff_speed=25.,lesson="all",pause=True):
       self.frequency = frequency
       self.speed = speed
       self.eff_speed = eff_speed
       self.lesson=lesson
 
       self.album="N0HFF - "+self.lesson
+      self.pause=pause
       
       self.words500=self.words500_3+self.words500_4+self.words500_5+self.words500_6+self.words500_7+self.words500_8
       self.fixes=self.prefixes+self.suffixes
@@ -76,10 +77,10 @@ class n0hff:
       elif lesson == "words500":
          self.words = self.words500
 
-   def Group(self,length=5,count=10,id=1,pause=True):
+   def Group(self,length=5,count=10,id=1):
       filename="n0hff."+str(self.lesson)+".groups"+str(length)+"."+str(id)+".wav"
       w=WaveMaker(filename=filename,frequency=self.frequency,speed=self.speed,eff_speed=self.eff_speed,
-            bookstable=False,pause
+            bookstable=False,pause=self.pause,
             track=str(id),album=self.album,title=self.lesson+" "+str(id))
       grp=str()
       for j in range(0,count):
