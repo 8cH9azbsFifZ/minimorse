@@ -133,7 +133,12 @@ class WaveWriter:
         self.__wav.writeframes(data)
 
 class WaveMaker:
-   def __init__(self,filename="test.wav",frequency=750.0,speed=25.0,eff_speed=15.0,vol=-10.,channels=1,title="none",track="1",album="none",maketextfile=False,prespeaky=False,speaky=True,bookstable=True):
+   def __init__(self,filename="test.wav",
+         frequency=750.0,
+         speed=25.0,eff_speed=15.0,
+         vol=-10.,channels=1,
+         title="none",track="1",album="none",
+         maketextfile=False,prespeaky=False,speaky=True,bookstable=True,pause=True):
       self.sample_rate=22050. # let fixed cuz of espeak!
       self.frequency=frequency
       self.speed=speed
@@ -156,6 +161,7 @@ class WaveMaker:
       self.prespeaky=prespeaky
       self.speaky=speaky
       self.bookstable=bookstable
+      self.pause=pause
 
       self.album=album #id3 tag stuff
       self.title=title
@@ -235,7 +241,8 @@ class WaveMaker:
       pp.close()
 
    def __del__(self):
-      self.Countdown()
+      if self.pause:
+         self.Countdown()
       if self.maketextfile:
          self.WriteText()
       if self.speaky:
@@ -373,10 +380,13 @@ if len(sys.argv) > 1:
       kk=Koch()
       kk.MakeTutorial()
    elif sys.argv[1] == "n0hff":
-      # Create the n0hff lessons
       for lesson in ["words100","words500","fixes","longwords"]:
          nn=n0hff(lesson=lesson)
          for id in range(1,12):
             nn.Group(id=id,count=10)
+   elif sys.argv[1] == "straight100":
+      nn=n0hff(lesson="words100")
+      for id in range(1,100):
+         nn.Group(id=id,count=1)
 else:
    print "call with: <koch|n0hff>"
