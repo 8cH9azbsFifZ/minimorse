@@ -290,6 +290,8 @@ class WaveMaker:
    def Speaky(self):
       print "Writing speech"
       speech=str()
+      if self.prespeaky:
+         self.text=self.text[0]
       for char in self.text.upper():
          if char == " ":
             speech+=". "
@@ -336,7 +338,7 @@ class Koch:
    def NewChar(self,count=10):
       filename="koch."+str(self.lesson)+".newchar.wav"
       w=WaveMaker(filename=filename,frequency=self.frequency,speed=self.speed,eff_speed=self.eff_speed,
-            track=str(1),album=self.album,title="New char: "+self.curchar)
+            track=str(1),album=self.album,title="New char: "+self.curchar,prespeaky=True)
       grp=str()
       for i in range(0,count):
          grp+=self.curchar
