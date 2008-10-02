@@ -1,8 +1,4 @@
 #!/usr/bin/python
-# TODO:
-# - Send the new character more often...
-# - introduce new charater: speech, morse, 1x speech
-# - make more groups
 
 import wave, struct, os, sys
 from math import *
