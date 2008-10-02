@@ -76,10 +76,10 @@ class n0hff:
       elif lesson == "words500":
          self.words = self.words500
 
-   def Group(self,length=5,count=10,id=1):
+   def Group(self,length=5,count=10,id=1,pause=True):
       filename="n0hff."+str(self.lesson)+".groups"+str(length)+"."+str(id)+".wav"
       w=WaveMaker(filename=filename,frequency=self.frequency,speed=self.speed,eff_speed=self.eff_speed,
-            bookstable=False,
+            bookstable=False,pause
             track=str(id),album=self.album,title=self.lesson+" "+str(id))
       grp=str()
       for j in range(0,count):
@@ -385,7 +385,7 @@ if len(sys.argv) > 1:
          for id in range(1,12):
             nn.Group(id=id,count=10)
    elif sys.argv[1] == "straight100":
-      nn=n0hff(lesson="words100")
+      nn=n0hff(lesson="words100",pause=False)
       for id in range(1,100):
          nn.Group(id=id,count=1)
 else:
