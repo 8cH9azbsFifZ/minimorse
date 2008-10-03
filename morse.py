@@ -341,17 +341,14 @@ class Koch:
       self.eff_speed = eff_speed
       self.SetLesson(lesson)
 
-   def Group(self,length=5,count=30,id=1,distribution=None):
+   def Group(self,length=5,count=30,id=1,NewCharMoreOften=None):
       filename="koch."+str(self.lesson)+".groups"+str(length)+"."+str(id)+".wav"
       w=WaveMaker(filename=filename,frequency=self.frequency,speed=self.speed,eff_speed=self.eff_speed,
             track=str(id+1),album=self.album,title="Group "+str(id))
       grp=str()
-      if distribution:
-         ccc=self.chars
-      else:
-         ccc=self.chars
-         for i in range(0,len(ccc)):
-            ccc+=self.curchar
+      ccc=self.chars
+      if NewCharMoreOften:
+         ccc+=self.curchar
       for j in range(0,count):
          grp+=" "
          for i in range(0,length):
@@ -382,7 +379,7 @@ class Koch:
          kk.NewChar()
          nn=min(3,ngroups)
          for id in range(1,nn):
-            kk.Group(id=id,distribution="abc")
+            kk.Group(id=id,NewCharMoreOften=True)
          for id in range(nn,ngroups):
             kk.Group(id=id)
 
