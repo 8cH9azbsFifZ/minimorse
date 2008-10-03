@@ -4,6 +4,9 @@ import wave, struct, os, sys
 from math import *
 from random import randint, choice #picker
 
+#########################################################################################
+# N0HFF
+#########################################################################################
 class n0hff:
    longwords=["somewhere","newspaper","wonderful","exchange","household","grandfather","overlooked","depending","movement",
    "handsome","contained","amounting","homestead","workmanship","production","discovered","preventing","misplaced","requested",
@@ -112,6 +115,9 @@ bookstable = { "0":"Zero","1":"One","2":"Two","3":"Three","4":"Four","5":"Five",
                "P":   "Papa", "Q":   "Quebec", "R":   "Romeo", "S":   "Sierra","T":   "Tango", "U":   "Uniform", "V":   "Victor", 
                "W":   "Whiskey","X":   "X-ray", "Y":   "Yankee", "Z":   "Zulu" }
 
+#########################################################################################
+# WaveWrite
+#########################################################################################
 class WaveWriter:
     def __init__(self, filename):
         self.__wav = wave.open(filename, "wb")
@@ -133,6 +139,9 @@ class WaveWriter:
     def write(self, data):
         self.__wav.writeframes(data)
 
+#########################################################################################
+# WaveMaker
+#########################################################################################
 class WaveMaker:
    def __init__(self,filename="test.wav",
          frequency=750.0,
@@ -320,7 +329,9 @@ class WaveMaker:
       pp.close()
       pp = os.popen("rm "+tmpfile)
 
-
+#########################################################################################
+# Koch
+#########################################################################################
 class Koch:
    kochchars = "kmrsuaptlowi.njef0yv,g5/q9zh38b?427c1d6x"
 
@@ -375,7 +386,9 @@ class Koch:
          for id in range(nn,ngroups):
             kk.Group(id=id)
 
-### Main stuff ###
+#########################################################################################
+# Main
+#########################################################################################
 if len(sys.argv) > 1:
    if sys.argv[1] == "koch":
       kk=Koch()
