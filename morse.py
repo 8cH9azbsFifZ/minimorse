@@ -377,11 +377,13 @@ class Koch:
       for lesson in range(1,41):
          self.SetLesson(lesson)
          kk.NewChar()
-         nn=min(3,ngroups)
-         for id in range(1,nn):
-            kk.Group(id=id,NewCharMoreOften=True)
-         for id in range(nn,ngroups):
+         for id in range(1,ngroups):
             kk.Group(id=id)
+         #nn=min(3,ngroups)
+         #for id in range(1,nn):
+         #   kk.Group(id=id,NewCharMoreOften=True)
+         #for id in range(nn,ngroups):
+         #   kk.Group(id=id)
 
 #########################################################################################
 # Main
