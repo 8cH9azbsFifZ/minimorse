@@ -377,16 +377,20 @@ class Koch:
       self.album = "Koch ("+str(int(self.eff_speed))+"wpm) - Lesson "+str(lesson)+" Char "+self.curchar
 
    def MakeTutorial(self,ngroups=7):
+      speed0 = self.eff_speed
+      speed1 = self.speed
       for lesson in range(1,41):
          kk.NewChar()
+         
+         self.eff_speed = speed0
          self.SetLesson(lesson)
-         ngroups+=1
-         for id in range(1,ngroups):
-            self.SetLesson(lesson)
+         print "a"
+         for id in range(1,ngroups+1):
             kk.Group(id=id)
-         self_effspeed = self.speed
+         
+         self.eff_speed = speed1
          self.SetLesson(lesson)
-         for id in range(ngroups,2*ngroups):
+         for id in range(ngroups+1,2*ngroups+1):
             kk.Group(id=id)
 
 #########################################################################################
@@ -395,7 +399,7 @@ class Koch:
 if len(sys.argv) > 1:
    if sys.argv[1] == "koch":
       kk=Koch()
-      kk.MakeTutorial()
+      kk.MakeTutorial(ngroups=2)
    elif sys.argv[1] == "n0hff":
       for lesson in ["words100","words500","fixes","longwords"]:
          nn=n0hff(lesson=lesson)
