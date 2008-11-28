@@ -345,7 +345,7 @@ class Koch:
       self.SetLesson(lesson)
 
    def Group(self,length=5,count=30,id=1,NewCharMoreOften=None):
-      filename="koch."+str(self.lesson)+".groups"+str(length)+"."+str(self.eff_speed)+"wpm"+str(id)+".wav"
+      filename="koch."+str(self.lesson)+".groups"+str(length)+"."+str(int(self.eff_speed))+"wpm."+str(id)+".wav"
       w=WaveMaker(filename=filename,frequency=self.frequency,speed=self.speed,eff_speed=self.eff_speed,
             track=str(id+1),album=self.album,title="Group "+str(id))
       grp=str()
@@ -374,18 +374,19 @@ class Koch:
       self.lesson = lesson
       self.chars = self.kochchars[:lesson]
       self.curchar = self.chars[-1]
-      self.album = "Koch (%d"self.eff_speed+"wpm) - Lesson "+str(lesson)+" Char "+self.curchar
+      self.album = "Koch ("+str(int(self.eff_speed))+"wpm) - Lesson "+str(lesson)+" Char "+self.curchar
 
    def MakeTutorial(self,ngroups=7):
       for lesson in range(1,41):
          kk.NewChar()
          self.SetLesson(lesson)
+         ngroups+=1
          for id in range(1,ngroups):
             self.SetLesson(lesson)
             kk.Group(id=id)
          self_effspeed = self.speed
          self.SetLesson(lesson)
-         for id in range(ngroups+1,2*ngroups):
+         for id in range(ngroups,2*ngroups):
             kk.Group(id=id)
 
 #########################################################################################
@@ -394,7 +395,7 @@ class Koch:
 if len(sys.argv) > 1:
    if sys.argv[1] == "koch":
       kk=Koch()
-      kk.MakeTutorial(ngroups=1)
+      kk.MakeTutorial()
    elif sys.argv[1] == "n0hff":
       for lesson in ["words100","words500","fixes","longwords"]:
          nn=n0hff(lesson=lesson)
