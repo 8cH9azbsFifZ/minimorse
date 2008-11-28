@@ -345,7 +345,7 @@ class Koch:
       self.SetLesson(lesson)
 
    def Group(self,length=5,count=30,id=1,NewCharMoreOften=None):
-      filename="koch."+str(self.lesson)+".groups"+str(length)+"."+str(int(self.eff_speed))+"wpm."+str(id)+".wav"
+      filename="koch."+str(self.lesson)+"."+str(id)+".groups"+str(length)+"."+str(int(self.eff_speed))+"wpm.wav"
       w=WaveMaker(filename=filename,frequency=self.frequency,speed=self.speed,eff_speed=self.eff_speed,
             track=str(id+1),album=self.album,title="Group "+str(id))
       grp=str()
@@ -384,13 +384,12 @@ class Koch:
          
          self.eff_speed = speed0
          self.SetLesson(lesson)
-         print "a"
-         for id in range(1,ngroups+1):
+         for id in range(1,int(ngroups/2)+1):
             kk.Group(id=id)
          
          self.eff_speed = speed1
          self.SetLesson(lesson)
-         for id in range(ngroups+1,2*ngroups+1):
+         for id in range(int(ngroups)/2+1,ngroups+1):
             kk.Group(id=id)
 
 #########################################################################################
@@ -399,7 +398,7 @@ class Koch:
 if len(sys.argv) > 1:
    if sys.argv[1] == "koch":
       kk=Koch()
-      kk.MakeTutorial(ngroups=2)
+      kk.MakeTutorial(ngroups=10)
    elif sys.argv[1] == "n0hff":
       for lesson in ["words100","words500","fixes","longwords"]:
          nn=n0hff(lesson=lesson)
