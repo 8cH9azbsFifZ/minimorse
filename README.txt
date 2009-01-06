@@ -21,6 +21,7 @@ Dependencies
 - lame
 - espeak
 - sox
+- eyed3
 
 
 Usage
