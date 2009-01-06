@@ -282,8 +282,10 @@ class WaveMaker:
 
       pp = os.popen (streamy+" | "+lame+" - "+self.mp3file)
       pp.close()
-      pp = os.popen ("eyeD3 --add-image=\"cover.jpg\":FRONT_COVER \""+self.mp3file+"\"")
-      pp.close()
+      pq = os.popen ("eyeD3 --to-v2.3 \""+self.mp3file+"\"")
+      pq.close()
+      qq = os.popen ("eyeD3 --add-image=\"cover.jpg\":FRONT_COVER \""+self.mp3file+"\"")
+      qq.close()
 
    def Dit(self):
       self.pcm.write(self.dit_sample)
