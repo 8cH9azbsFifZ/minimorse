@@ -1,0 +1,20 @@
+Package: minimorse
+Version: 0.1.1
+Depends: lame, espeak, sox, eyed3
+Essential: no
+Priority: standard
+Section: corvix
+Maintainer: Gerolf Ziegenhain <gerolf@corvix.eu>
+Homepage: corvix.eu
+Architecture: all
+Description: Morse code trainer.
+ This small python script will generate mp3 and corresponding text files
+ for learning / training the morse code. It follows the method (1) for
+ teaching the characters and the method described in (2) for improving
+ the skills even more. Parts of the code are based on this (3) very nice
+ program.
+ The morsed stuff will be spoken afterwards in the audio file :) 
+ Once the mp3s are generated, you may play them back on any mp3 player.
+ As meaningful id3 tags are inserted you easily may browse through all 
+ lessons even on a mobile phone.
+
