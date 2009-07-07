@@ -192,8 +192,8 @@ class WaveMaker:
       self.dit_len        = int(floor(round(self.dit_len/period_len)*period_len))
       self.da_len         = (180.0 * self.sample_rate) / (50.0 * float(self.speed))
       self.da_len         = int(floor(round(self.da_len/period_len)*period_len))
-      self.char_pause_len = int(round((300 * self.sample_rate) / (50.0 * float(self.eff_speed))))
-      self.word_pause_len = int(round((480* self.sample_rate) / (50.0 * float(self.eff_speed))))
+      self.char_pause_len = self.dit_len*3 
+      self.word_pause_len = self.dit_len*7 
       self.buffer_len     = self.dit_len*2
 
       # calculate dit-sample:
@@ -266,11 +266,11 @@ class WaveMaker:
    def CompressAudio(self):
       print "Compressing now: "+self.filename
       artist = "Mini-Morse"
-      year="2008"
+      year="2009"
       track=self.track
       album="\""+self.album+"\""
       title="\""+self.title+"\""
-      comment="none" #"\""+self.text+"\""
+      comment="http://g.ziegenhain.com" #"\""+self.text+"\""
       lame="lame -m m -B 16 -b 16 --tt "+title+" --ta "+artist+" --tl "+album+" --ty "+year+" --tn "+track+" --tc "+comment+" "
       if self.speaky:
          if self.prespeaky:
@@ -342,7 +342,7 @@ class WaveMaker:
 class Koch:
    kochchars = "kmrsuaptlowi.njef0yv,g5/q9zh38b?427c1d6x"
 
-   def __init__(self,lesson=1,frequency=750.,speed=25.,eff_speed=15.0):
+   def __init__(self,lesson=1,frequency=750.,speed=18.,eff_speed=18.0):
       self.frequency = frequency
       self.speed = speed
       self.eff_speed = eff_speed
@@ -351,7 +351,7 @@ class Koch:
    def Group(self,length=5,count=30,id=1,NewCharMoreOften=None):
       filename="koch."+str(self.lesson)+"."+str(id)+".groups"+str(length)+"."+str(int(self.eff_speed))+"wpm.wav"
       w=WaveMaker(filename=filename,frequency=self.frequency,speed=self.speed,eff_speed=self.eff_speed,
-            track=str(id+1),album=self.album,title="Group "+str(id))
+            track=str(id+1),album=self.album,title="Group "+str(id)+" ("+str(int(self.eff_speed))+"wpm)")
       grp=str()
       ccc=self.chars
       if NewCharMoreOften:
@@ -378,7 +378,8 @@ class Koch:
       self.lesson = lesson
       self.chars = self.kochchars[:lesson]
       self.curchar = self.chars[-1]
-      self.album = "Koch ("+str(int(self.eff_speed))+"wpm) - Lesson "+str(lesson)+" Char "+self.curchar
+      #self.album = "Koch ("+str(int(self.eff_speed))+"wpm) - Lesson "+str(lesson)+" Char "+self.curchar
+      self.album = "Koch - Lesson "+str(lesson)+" Char "+self.curchar
 
    def MakeTutorial(self,ngroups=7):
       speed0 = self.eff_speed
@@ -414,4 +415,4 @@ if len(sys.argv) > 1:
       for id in range(1,100):
          nn.Group(id=id,count=1)
 else:
-   print "call with: <koch|n0hff>"
+   print "call with: <koch|n0hff|straight100>"
