@@ -423,14 +423,14 @@ class Groups:
       files=""
       for id in range(0,count):
          filename="groups"+str(length)+"."+str(id)+"."+str(int(self.eff_speed))+"wpm.wav"
-         files=files+" "+filename.replace("wav","mp3")+" pause.mp3"
+         files=files+" "+filename.replace("wav","mp3")+" pause.mp3 pause.mp3"
          w=WaveMaker(filename=filename,frequency=self.frequency,speed=self.speed,eff_speed=self.eff_speed,
            track=str(id+1),album=album,title=str(id),middlespeaky=True,pause=False,prepause=False)
          grp=str()
          for i in range(0,length):
             grp+=choice(ccc)
          w.Morse(grp)
-#      time.sleep(30) # FIXME: wait for compressions to finish
+      time.sleep(30) # FIXME: wait for compressions to finish
       outfile="groups"+str(length)+"."+str(int(self.eff_speed))+"wpm.mp3"
       pp = os.popen ("cat "+files+" > "+outfile)
       pp.close()
