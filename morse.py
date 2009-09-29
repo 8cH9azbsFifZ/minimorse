@@ -152,7 +152,7 @@ class WaveMaker:
          speed=25.0,eff_speed=15.0,
          vol=-10.,channels=1,
          title="none",track="1",album="none",
-         maketextfile=False,prespeaky=False,speaky=True,bookstable=True,pause=True):
+         maketextfile=False,middlespeaky=False,prespeaky=False,speaky=True,bookstable=True,pause=True,prepause=True):
       self.sample_rate=22050. # let fixed cuz of espeak!
       self.frequency=frequency
       self.speed=speed
@@ -173,6 +173,7 @@ class WaveMaker:
       self.text=str()
       self.maketextfile=maketextfile
       self.prespeaky=prespeaky
+      self.middlespeaky=middlespeaky
       self.speaky=speaky
       self.bookstable=bookstable
       self.pause=pause
@@ -181,7 +182,8 @@ class WaveMaker:
       self.title=title
       self.track=track
 
-      self.Countdown()
+      if prepause:
+         self.Countdown()
 
    def GenerateSamples(self):
       # pre-calculate some stuff:
@@ -276,6 +278,8 @@ class WaveMaker:
       if self.speaky:
          if self.prespeaky:
             streamy="sox "+self.speechfile+" "+self.filename+" -t wav -s -w -"
+         elif self.middlespeaky:
+            streamy="sox "+self.filename+" "+self.speechfile+" "+self.filename+" -t wav -s -w -"
          else:
             streamy="sox "+self.filename+" "+self.speechfile+" -t wav -s -w -"
       else:
@@ -399,12 +403,40 @@ class Koch:
             kk.Group(id=id)
 
 #########################################################################################
+# Groups
+#########################################################################################
+class Groups:
+   def __init__(self,lesson=1,frequency=750.,speed=18.,eff_speed=18.0):
+      self.frequency = frequency
+      self.speed = speed
+      self.eff_speed = eff_speed
+
+   def Group(self,length=5,count=30,id=1):
+      album = "Groups - ("+str(int(self.eff_speed))+"wpm)"
+      filename="groups"+str(length)+"."+str(int(self.eff_speed))+"wpm.wav"
+      w=WaveMaker(filename=filename,frequency=self.frequency,speed=self.speed,eff_speed=self.eff_speed,
+           track=str(id+1),album=album,title=str(id),middlespeaky=True,pause=False,prepause=False)
+      grp=str()
+      ccc="kmrsuaptlowi.njef0yv,g5/q9zh38b?427c1d6x"
+      for i in range(0,length):
+         grp+=choice(ccc)
+      w.Morse(grp)
+      
+
+
+
+
+
+#########################################################################################
 # Main
 #########################################################################################
 if len(sys.argv) > 1:
    if sys.argv[1] == "koch":
       kk=Koch()
       kk.MakeTutorial(ngroups=10)
+   elif sys.argv[1] == "groups":
+      gg=Groups()
+      gg.Group()
    elif sys.argv[1] == "n0hff":
       for lesson in ["words100","words500","fixes","longwords"]:
          nn=n0hff(lesson=lesson)
