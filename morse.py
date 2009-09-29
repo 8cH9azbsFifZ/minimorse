@@ -54,7 +54,7 @@ class n0hff:
    "together"]
    words500_8=["important","themselves","Washington","government","something","condition","president"]
 
-   def __init__(self,frequency=750.,speed=25.,eff_speed=25.,lesson="all",pause=True):
+   def __init__(self,frequency=750.,speed=18.,eff_speed=18.,lesson="all",pause=True):
       self.frequency = frequency
       self.speed = speed
       self.eff_speed = eff_speed
@@ -89,8 +89,9 @@ class n0hff:
       for j in range(0,count):
          grp+=" "
          for i in range(0,length):
-            grp+=choice(self.words).lower()+" "
-      w.Morse(grp)
+            w.Morse(choice(self.words).lower()+" ")
+            #grp+=choice(self.words).lower()+" "
+      #w.Morse(grp)
 
 
 morse_table = {'a':'.-',     'b':'-...',   'c':'-.-.',  'd':'-..',
