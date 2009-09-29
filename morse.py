@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import wave, struct, os, sys
+import wave, struct, os, sys, time
 from math import *
 from random import randint, choice #picker
 
@@ -417,22 +417,30 @@ class Groups:
       self.speed = speed
       self.eff_speed = eff_speed
 
-   def Group(self,length=5,count=2):
+   def Group(self,length=5,count=100):
       album = "Groups - ("+str(int(self.eff_speed))+"wpm)"
       ccc="kmrsuaptlowi.njef0yv,g5/q9zh38b?427c1d6x"
+      files=""
       for id in range(0,count):
          filename="groups"+str(length)+"."+str(id)+"."+str(int(self.eff_speed))+"wpm.wav"
+         files=files+" "+filename.replace("wav","mp3")+" pause.mp3"
          w=WaveMaker(filename=filename,frequency=self.frequency,speed=self.speed,eff_speed=self.eff_speed,
            track=str(id+1),album=album,title=str(id),middlespeaky=True,pause=False,prepause=False)
          grp=str()
          for i in range(0,length):
             grp+=choice(ccc)
          w.Morse(grp)
-         w.Pausi()
-      
-
-
-
+#      time.sleep(30) # FIXME: wait for compressions to finish
+      outfile="groups"+str(length)+"."+str(int(self.eff_speed))+"wpm.mp3"
+      pp = os.popen ("cat "+files+" > "+outfile)
+      pp.close()
+      pp = os.popen ("eyeD3 --album=\""+album+"\" --title=\"-\" --track=1 --add-image=\"cover.jpg\":FRONT_COVER \""+outfile+"\"")
+      pp.close()
+      for id in range(0,count):
+         filename="groups"+str(length)+"."+str(id)+"."+str(int(self.eff_speed))+"wpm.mp3"
+         print filename
+         pp = os.popen ("rm "+filename)
+         pp.close()
 
 
 #########################################################################################
