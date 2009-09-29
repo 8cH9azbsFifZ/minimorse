@@ -152,7 +152,7 @@ class WaveMaker:
          speed=25.0,eff_speed=15.0,
          vol=-10.,channels=1,
          title="none",track="1",album="none",
-         maketextfile=False,middlespeaky=False,prespeaky=False,speaky=True,bookstable=True,pause=True,prepause=True):
+         maketextfile=False,middlespeaky=False,prespeaky=False,speaky=True,bookstable=True,pause=True,prepause=True,postpause=False):
       self.sample_rate=22050. # let fixed cuz of espeak!
       self.frequency=frequency
       self.speed=speed
@@ -241,6 +241,12 @@ class WaveMaker:
       self.Dit()
       self.WordPause()
       self.Dit()
+      self.WordPause()
+      self.WordPause()
+      self.WordPause()
+      self.WordPause()
+
+   def Pausi(self):
       self.WordPause()
       self.WordPause()
       self.WordPause()
@@ -406,21 +412,23 @@ class Koch:
 # Groups
 #########################################################################################
 class Groups:
-   def __init__(self,lesson=1,frequency=750.,speed=18.,eff_speed=18.0):
+   def __init__(self,frequency=750.,speed=18.,eff_speed=18.0):
       self.frequency = frequency
       self.speed = speed
       self.eff_speed = eff_speed
 
-   def Group(self,length=5,count=30,id=1):
+   def Group(self,length=5,count=2):
       album = "Groups - ("+str(int(self.eff_speed))+"wpm)"
-      filename="groups"+str(length)+"."+str(int(self.eff_speed))+"wpm.wav"
-      w=WaveMaker(filename=filename,frequency=self.frequency,speed=self.speed,eff_speed=self.eff_speed,
-           track=str(id+1),album=album,title=str(id),middlespeaky=True,pause=False,prepause=False)
-      grp=str()
       ccc="kmrsuaptlowi.njef0yv,g5/q9zh38b?427c1d6x"
-      for i in range(0,length):
-         grp+=choice(ccc)
-      w.Morse(grp)
+      for id in range(0,count):
+         filename="groups"+str(length)+"."+str(id)+"."+str(int(self.eff_speed))+"wpm.wav"
+         w=WaveMaker(filename=filename,frequency=self.frequency,speed=self.speed,eff_speed=self.eff_speed,
+           track=str(id+1),album=album,title=str(id),middlespeaky=True,pause=False,prepause=False)
+         grp=str()
+         for i in range(0,length):
+            grp+=choice(ccc)
+         w.Morse(grp)
+         w.Pausi()
       
 
 
@@ -448,4 +456,4 @@ if len(sys.argv) > 1:
       for id in range(1,100):
          nn.Group(id=id,count=1)
 else:
-   print "call with: <koch|n0hff|straight100>"
+   print "call with: <koch|n0hff|straight100|groups>"
