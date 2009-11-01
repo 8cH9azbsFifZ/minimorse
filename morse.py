@@ -53,6 +53,23 @@ class n0hff:
    "without","national","continue","question","consider","increase","American","interest","possible","anything","children","remember","business",
    "together"]
    words500_8=["important","themselves","Washington","government","something","condition","president"]
+   words_qrp=[
+  "+","73","88","AA","AB","ABT","ADR","AGN","AM","ANT","AS","B4","BCI",
+  "BCL","BK","BN","BUG","C","CFM","CL","CLD","CLG","CQ","CW","DLD","DLVD",
+  "DR","DX","ES","FB","FM","GA","GM","GN","GND","GUD","HI","HR","HV","HW",
+  "K","LID","MA","MILS","MSG","N","NCS","ND","NIL","NM","NR","NW","OB","OC",
+  "OM","OP","OPR","OT","PBL","PSE","PWR","PX","QRG","QRH","QRI","QRJ","QRK",
+  "QRL","QRM","QRN","QRO","QRP","QRQ","QRS","QRT","QRU","QRV","QRW","QRX",
+  "QRY","QRZ","QSA","QSB","QSD","QSG","QSK","QSL","QSM","QSN","QSO","QSP",
+  "QST","QSU","QSW","QSX","QSY","QSZ","QTA","QTB","QTC","QTH","QTR","R",
+  "RCD","RCVR","REF","RFI","RIG","RTTY","RX","SASE","SED","SIG","SKED","SRI",
+  "SSB","SVC","T","TFC","TKS","TMW","TNX","TT","TU","TVI","TX","TXT","UR",
+  "URS","VFO","VY","WA","WB","WD","WDS","WKD","WKG","WL","WUD","WX","XCVR",
+  "XMTR","XTAL","XYL","YL","BURO","HPE","CU","SN","TEST","TEMP","MNI","RST",
+  "599","5NN","559","CPY","DE","OK","RPT","ANI","BCNU","BD","BLV","CC","CK",
+  "CNT","CO","CONDX","CPSE","CRD","CUD","CUAGN","CUL","ELBUG","ENUF","FER",
+  "FONE","FREQ","GB","GD","GE","HVY","II","INPT","LSN","PA","PP","RPRT","RPT",
+  "SA","STN","SUM","SWL","TRX","WID"]
 
    def __init__(self,frequency=750.,speed=18.,eff_speed=18.,lesson="all",pause=True):
       self.frequency = frequency
