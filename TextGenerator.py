@@ -63,4 +63,24 @@ class TextGenerator:
 	"CNT","CO","CONDX","CPSE","CRD","CUD","CUAGN","CUL","ELBUG","ENUF","FER",
 	"FONE","FREQ","GB","GD","GE","HVY","II","INPT","LSN","PA","PP","RPRT","RPT",
 	"SA","STN","SUM","SWL","TRX","WID"]
+	qso_call="cq cq cq de <call>/qrp /mobile <pse> k"
+	qso_tnx="gd dr om es tnx fer call ="
+	qso_rst="rst <579> <579> qth nr thun thun ="
+	qso_name="<my> name <hr> is <name> ="
+	qso_ok="hw <copy>?"
+	qso_ok="<yourcall> de <call>"
+	qso_reply="r"
+	qso_reply= "tnx fer info dr <name> = "
+	qso_rig="rig is <ft 857> es pwt abt 100 wtts ant is loop ="
+	qso_rig="<my> rig is a <...> ="
+	qso_pwr="<my> pwr is <abt> <123> watts wtts ="
+	qso_ant="ant hr is gipole,gp,logper,longwire,lw,loop,mag,yagi,beam="
+	qso_atu="i use an <sgc 239 atu>="
+	qso_ok="hw dr <name>? <yourcall> de <mycall> k"
+	qso_tnx="mni tnx fer nice qso="
+	qso_qsl="qsl via buro is ok="
+	qso_end="<best> 73="
+	qso_wx="wx <clear,cloudy,rainy,snow,sunny>="
+	qso_temp="temp hr is abt <1> C="
+
 
