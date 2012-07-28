@@ -23,10 +23,6 @@ Dependencies
 - sox
 - eyed3
 
-Installation (corvix)
-=====================
-It will be installed under /opt/corvix/var/minimorse
-
 
 Usage
 =====
