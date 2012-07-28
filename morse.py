@@ -1,5 +1,5 @@
 #!/usr/bin/python
-
+# FIXME: include the words from the text generator class
 import wave, struct, os, sys, time
 from math import *
 from random import randint, choice #picker
