@@ -100,6 +100,18 @@ sub generate_mp3
 }
 
 
+## @method gen_qth
+# Generate a plausible QTH
+sub gen_qth 
+{
+	# TBD: maidenhead
+	# TBD: WGS
+	# TBD: cities
+	# TBD: randomize
+	my $qth = "JO40DA";
+	return $qth;
+}
+
 ## @method generate_qso
 # Generate a random QSO
 sub generate_qso 
@@ -109,24 +121,24 @@ sub generate_qso
 
 	# call
 	my @qso_cq = ("cq cq cq", "cq cq", "cq cq cq cq cq");
-	my @qso_cq_appendices = ("test", "pse");
-	# TBD: appendices
-	$qso_cq = rnd_words(1,\@qso_cq)." de $call $call k";
-	$qso = "$qso $qso_cq\n";
+	my @qso_cq_appendices = ("", "test", "pse");
+	$qso_cq = rnd_words(1,\@qso_cq)." de $call $call".rnd_words(1,\@qso_cq_appendices)." k";
 
 	# reply
 	my @ack = ("r", "r r");
 	my $reply = "$mycall de $call =";
 	my @reply_tnx = ("gd dr om es tnx fer call =");
-	my $rep = rnd_words(1, \@ack)."\n$reply\n".rnd_words(1,\@reply_tnx); 
-	$qso = "$qso $rep\n";
+	my $qso_rep = rnd_words(1, \@ack)."\n$reply\n".rnd_words(1,\@reply_tnx); 
 
 	# rst
 	my $rv = gen_rst();
 	my @rsts = ("rst ", "ur rst is ", "rst rst is");
 	my @rvl = ("$rv", "$rv $rv", "$rv $rv $rv");
-	my $rst = rnd_words(1, \@rsts)." ".rnd_words(1,\@rvl)." =";
-	$qso = "$qso $rst\n";
+	my $qso_rst = rnd_words(1, \@rsts)." ".rnd_words(1,\@rvl)." =";
+
+	# qth 
+	my $qth = gen_qth();
+	my @loc = ("qth nr $qth", "my qth is $qth", "qth $qth");
 
 	#qth nr thun thun ="
 	#	qso_name="<my> name <hr> is <name> ="
@@ -145,6 +157,9 @@ sub generate_qso
 	#	qso_wx="wx <clear,cloudy,rainy,snow,sunny>="
 	#	qso_temp="temp hr is abt <1> C="
 
+	$qso = "$qso $qso_cq\n";
+	$qso = "$qso $qso_rep\n";
+	$qso = "$qso $qso_rst\n";
 	print $qso;
  	my $date = `date +"%Y-%m-%d_%H:%m"`;
 	chomp ($date);
