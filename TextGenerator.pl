@@ -69,8 +69,29 @@ sub gen_rst
 }
 
 
-# QSO Generation stuff
+## @method generate_mp3($string)
+# Generate an mp3 file
+sub generate_mp3
+{
+	my $text = shift;
+	my $infile = "test.txt";
+	open (FILE, ">$infile") or die "Cannot open $infile for writing.\n";
+	print FILE $text;
+	close (FILE);
+	my $outfile = "test"; #.mp3 will be added by ebook2cw
+	my $author = "DG6FL";
+	my $title = "Morse Code";
+	my $year = 2012;
+	my $cmd = "ebook2cw $snr -w $wpm -e $ewpm -o $outfile -a $author -t $title -k $comment -y $year $infile";
+}
+
+# Global variables for configuration
 my ($mycall, $myname) = ("dg6fl", "gerolf");
+my ($wpm, $ewpm) = 18, 18;
+my $snr = ""; # SNR noise -10 .. 10 dB
+
+
+# QSO Generation stuff
 
 my $qso;
 my $call = gen_call();
@@ -115,3 +136,5 @@ $qso = "$qso $rst\n";
 
 
 print $qso;
+
+generate_mp3($qso);
