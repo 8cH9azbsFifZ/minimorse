@@ -78,17 +78,18 @@ $qso_cq = rnd_words(1,\@qso_cq)." de $call $call k";
 $qso = "$qso $qso_cq\n";
 
 # reply
-my $ack = "r";
+my @ack = ("r", "r r");
 my $reply = "$mycall de $call =";
 my @reply_tnx = ("gd dr om es tnx fer call =");
+my $rep = rnd_words(1, \@ack)."\n$reply\n".rnd_words(1,\@reply_tnx); 
+$qso = "$qso $rep\n";
 
 # rst
-my @rsts = ("rst ", "ur rst is ", "rst rst is");
 my $rv = gen_rst();
+my @rsts = ("rst ", "ur rst is ", "rst rst is");
 my @rvl = ("$rv", "$rv $rv", "$rv $rv $rv");
 my $rst = rnd_words(1, \@rsts)." ".rnd_words(1,\@rvl)." =";
 $qso = "$qso $rst\n";
-
 
 #qth nr thun thun ="
 #	qso_name="<my> name <hr> is <name> ="

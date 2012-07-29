@@ -1,11 +1,22 @@
 Mini-Morse
 ==========
 
-Why use a complicated program to obtain/improve your cw skills? Morse code is simple - and so is this program. This small python script will generate mp3 files (also containing speech) for training the morse code.
+Why use a complicated program to obtain/improve your cw skills? Morse 
+code is simple - and so is this program. This small set of scripts will 
+generate mp3 files for training the morse code.
 
 
-Description
-===========
+Description TextGenerator.pl
+============================
+This small perl script will generate mp3 files containing qso texts or 
+the most common words.
+
+Dependencies:
+- ebook2cw
+
+
+Description morse.py
+====================
 This small python script will generate mp3 and corresponding text files
 for learning / training the morse code. It follows the method (1) for
 teaching the characters and the method described in (2) for improving
@@ -17,8 +28,7 @@ As meaningful id3 tags are inserted you easily may browse through all
 lessons even on a mobile phone.
 
 
-Dependencies
-============
+Dependencies:
 - python
 - lame
 - espeak
@@ -26,8 +36,7 @@ Dependencies
 - eyed3
 
 
-Usage
-=====
+Usage:
 - Create kochs files:
      morse.py koch
   This will generate mp3s for learning the morse code from scratch. The
