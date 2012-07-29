@@ -57,19 +57,21 @@ sub rnd_words
 	return $wrds;
 }
 
-## @method rnd_letter
-# Return a random letter
+## @method rnd_letter($can_omit)
+# @param can_omit Can the return code be empty?
+# @return Random letter
 sub rnd_letter
 {
+	my $can_omit = shift;
 	my $letters = "abcdefghijklmnopqrstuvwxyz";
 	my $r = rnd(28); # number bigger than 24, because we want to omit some letters :)
+	$r = rnd(24) if $can_omit ne 1;
 	my $l = substr $letters, $r, 1;
 	return $l;
 }
 
 ## @method rnd_number
 # Return a random number 
-# FIXME: a bad useless function - use it anyway for symmetry :)
 sub rnd_number
 {
 	my $numbers = "0123456789";
@@ -83,7 +85,7 @@ sub rnd_number
 sub gen_call
 {
 	my @call_appendices = ("/qrp", "/mobile","","","","","","","",""); #multiple "" to simulate propability density
-	my $call = rnd_letter().rnd_letter().rnd_number().rnd_letter().rnd_letter().rnd_words(1,\@call_appendices);
+	my $call = rnd_letter(1).rnd_letter(1).rnd_number().rnd_letter(1).rnd_letter(1).rnd_words(1,\@call_appendices);
 	return $call;
 }
 
@@ -113,8 +115,10 @@ sub generate_mp3
 	my $author = "DG6FL";
 	my $title = "Morse Code"; # FIXME add real title
 	my $year = 2012;
-	# FIXME: check if exists
 	# FIXME: add cover art
+	my $ebook2cw = `which ebook2cw`;
+	chomp ($ebook2cw);
+	-x $ebook2cw or die "Cannot run ebook2cw: $ebook2cw.\n";
 	my $cmd = "ebook2cw $snr -w $wpm -e $ewpm -o $tempoutfile -a \"$author\" -t \"$title\" -k \"$comment\" -y $year $infile";
 	`$cmd`;
 	`rm $infile`;
@@ -126,11 +130,9 @@ sub generate_mp3
 # Generate a plausible QTH
 sub gen_qth 
 {
-	# TBD: maidenhead
 	# TBD: WGS
 	# TBD: cities
-	# TBD: randomize
-	my $qth = "JO40DA";
+	my $qth = rnd_letter().rnd_letter().rnd_number().rnd_letter().rnd_letter();
 	return $qth;
 }
 	
@@ -147,8 +149,8 @@ sub gen_rig
 # Generate a plausible name
 sub gen_name
 {
-	# TBD implement
-	my $name = "franz";
+	my @n = ("jan","john","franz","ore","smore","jack","arnold","wilhelm","angeline");
+	my $name = rnd_words(1,\@n);
 	return $name;
 }
 
