@@ -100,50 +100,57 @@ sub generate_mp3
 }
 
 
-# QSO Generation stuff
+## @method generate_qso
+# Generate a random QSO
+sub generate_qso 
+{
+	my $qso;
+	my $call = gen_call();
 
-my $qso;
-my $call = gen_call();
+	# call
+	my @qso_cq = ("cq cq cq", "cq cq", "cq cq cq cq cq");
+	my @qso_cq_appendices = ("test", "pse");
+	# TBD: appendices
+	$qso_cq = rnd_words(1,\@qso_cq)." de $call $call k";
+	$qso = "$qso $qso_cq\n";
 
-# call
-my @qso_cq = ("cq cq cq", "cq cq", "cq cq cq cq cq");
-my @qso_cq_appendices = ("test", "pse");
-# TBD: appendices
-$qso_cq = rnd_words(1,\@qso_cq)." de $call $call k";
-$qso = "$qso $qso_cq\n";
+	# reply
+	my @ack = ("r", "r r");
+	my $reply = "$mycall de $call =";
+	my @reply_tnx = ("gd dr om es tnx fer call =");
+	my $rep = rnd_words(1, \@ack)."\n$reply\n".rnd_words(1,\@reply_tnx); 
+	$qso = "$qso $rep\n";
 
-# reply
-my @ack = ("r", "r r");
-my $reply = "$mycall de $call =";
-my @reply_tnx = ("gd dr om es tnx fer call =");
-my $rep = rnd_words(1, \@ack)."\n$reply\n".rnd_words(1,\@reply_tnx); 
-$qso = "$qso $rep\n";
+	# rst
+	my $rv = gen_rst();
+	my @rsts = ("rst ", "ur rst is ", "rst rst is");
+	my @rvl = ("$rv", "$rv $rv", "$rv $rv $rv");
+	my $rst = rnd_words(1, \@rsts)." ".rnd_words(1,\@rvl)." =";
+	$qso = "$qso $rst\n";
 
-# rst
-my $rv = gen_rst();
-my @rsts = ("rst ", "ur rst is ", "rst rst is");
-my @rvl = ("$rv", "$rv $rv", "$rv $rv $rv");
-my $rst = rnd_words(1, \@rsts)." ".rnd_words(1,\@rvl)." =";
-$qso = "$qso $rst\n";
+	#qth nr thun thun ="
+	#	qso_name="<my> name <hr> is <name> ="
+	#	qso_ok="hw <copy>?"
+	#	qso_ok="<yourcall> de <call>"
+	#	qso_reply= "tnx fer info dr <name> = "
+	#	qso_rig="rig is <ft 857> es pwt abt 100 wtts ant is loop ="
+	#	qso_rig="<my> rig is a <...> ="
+	#	qso_pwr="<my> pwr is <abt> <123> watts wtts ="
+	#	qso_ant="ant hr is gipole,gp,logper,longwire,lw,loop,mag,yagi,beam="
+	#	qso_atu="i use an <sgc 239 atu>="
+	#	qso_ok="hw dr <name>? <yourcall> de <mycall> k"
+	#	qso_tnx="mni tnx fer nice qso="
+	#	qso_qsl="qsl via buro is ok="
+	#	qso_end="<best> 73="
+	#	qso_wx="wx <clear,cloudy,rainy,snow,sunny>="
+	#	qso_temp="temp hr is abt <1> C="
 
-#qth nr thun thun ="
-#	qso_name="<my> name <hr> is <name> ="
-#	qso_ok="hw <copy>?"
-#	qso_ok="<yourcall> de <call>"
-#	qso_reply= "tnx fer info dr <name> = "
-#	qso_rig="rig is <ft 857> es pwt abt 100 wtts ant is loop ="
-#	qso_rig="<my> rig is a <...> ="
-#	qso_pwr="<my> pwr is <abt> <123> watts wtts ="
-#	qso_ant="ant hr is gipole,gp,logper,longwire,lw,loop,mag,yagi,beam="
-#	qso_atu="i use an <sgc 239 atu>="
-#	qso_ok="hw dr <name>? <yourcall> de <mycall> k"
-#	qso_tnx="mni tnx fer nice qso="
-#	qso_qsl="qsl via buro is ok="
-#	qso_end="<best> 73="
-#	qso_wx="wx <clear,cloudy,rainy,snow,sunny>="
-#	qso_temp="temp hr is abt <1> C="
+	print $qso;
+ 	my $date = `date +"%Y-%m-%d_%H:%m"`;
+	chomp ($date);
+	my $filename = "qso_$date";
+	generate_mp3 ($qso, $filename);
+}
 
 
-print $qso;
-
-generate_mp3($qso,"test.mp3");
+generate_qso();
