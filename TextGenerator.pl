@@ -176,6 +176,7 @@ sub gen_temp
 
 ## @method generate_qso
 # Generate a random QSO
+# TBD: remove double spaces and empty lines
 sub generate_qso 
 {
 	my $qso;
@@ -187,10 +188,11 @@ sub generate_qso
 	$qso_cq = rnd_words(1,\@qso_cq)." de $call $call".rnd_words(1,\@qso_cq_appendices)." k";
 
 	# reply
-	my @ack = ("r", "r r");
+	my @ack = ("r", "r r","");
 	my $reply = "$mycall de $call =";
-	my @reply_tnx = ("gd dr om es tnx fer call =", "tnx fer info dr $myname");
-	my $qso_rep = rnd_words(1, \@ack)."\n$reply\n".rnd_words(1,\@reply_tnx); 
+	my @reply_tnx = ("gd dr om es tnx fer call =", "tnx fer info dr $myname =", "");
+	my $qso_rep = rnd_words(1, \@ack)."\n$reply\n"; 
+	my $qso_rep2 = rnd_words(1, \@ack)."\n$reply\n".rnd_words(1,\@reply_tnx); 
 
 	# rst
 	my $rv = gen_rst();
@@ -241,18 +243,25 @@ sub generate_qso
 	my @eeqso = ("best 73", "73", "73 73");
 	my $qso_end = rnd_words(1, \@eqso)."\n".rnd_words(1, \@eeqso)." de $call <sk>";
 
+	# ordered QSO
+	my @queue = ($qso_rst, $qso_qth, $qso_rig, $qso_name, $qso_pwr, $qso_ant, $qso_wx);
+	# TBD: create random order
 	$qso = "$qso $qso_cq\n";
 	$qso = "$qso $qso_rep\n";
 	$qso = "$qso $qso_rst\n";
+	$qso = "$qso $qso_endreply\n";
+	$qso = "$qso $qso_rep2\n";
 	$qso = "$qso $qso_qth\n";
 	$qso = "$qso $qso_rig\n";
 	$qso = "$qso $qso_name\n";
 	$qso = "$qso $qso_pwr\n";
 	$qso = "$qso $qso_ant\n";
 	$qso = "$qso $qso_wx\n";
-	$qso = "$qso $qso_endreply\n";
 	$qso = "$qso $qso_end\n";
+
 	print $qso;
+
+	# Create mp3
  	my $date = `date +"%Y-%m-%d_%H:%M"`;
 	chomp ($date);
 	my $filename = "qso_$date";
