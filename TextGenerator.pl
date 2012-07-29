@@ -1,5 +1,6 @@
 #!/usr/bin/perl
 use Data::Dumper;
+
 my @longwords=("somewhere","newspaper","wonderful","exchange","household","grandfather","overlooked","depending","movement", "handsome","contained","amounting","homestead","workmanship","production","discovered","preventing","misplaced","requested", "breakfast","department","investment","throughout","furnishing","regulation","forwarded","friendship","herewith","foundation", "deportment","geography","important","lemonade","graduation","federated","educational","handkerchief","conversation","arrangement", "nightgown","commercial","exceptional","prosperity","subscription","visionary","federation","heretofore","ingredients","certificate", "pneumonia","interview","knowledge","stockholders","property","chaperone","permanently","demonstrated","immediately","responsible", "Chautauqua","candidacy","supervisor","independent","strawberry","epidemics","specification","agricultural","catalogues","phosphorus", "schedules","rheumatism","temperature","circumstances","convenience","Pullman","trigonometry","bourgeoisie","slenderize","camouflage", "broadcast","defamatory","ramshackle","bimonthly","predetermined","clemency","beleaguered","voluptuous","intoxicating","depository", "pseudonym","indescribable","hieroglyphics","morphologist","Yugoslavia","cynosure","parallelogram","pleasurable","toxicology","bassoonist", "influenza");
 my @prefixes=("un","ex","re","de","dis","mis","con","com","for","per","sub","pur","pro","post","anti","para","fore","coun","susp","extr","trans");
 my @suffixes=("ly","ing","ify","ally","tial","ful","ure","sume","sult","jure","logy","gram","hood","graph","ment","pose","pute","tain", "ture","cient","spect","quire","ulate","ject","ther");
@@ -12,7 +13,9 @@ my @words500_7=("hundred","against","brought","produce","company","already","hus
 my @words500_8=("important","themselves","Washington","government","something","condition","president");
 my @words_qrp=( "+","73","88","AA","AB","ABT","ADR","AGN","AM","ANT","AS","B4","BCI", "BCL","BK","BN","BUG","C","CFM","CL","CLD","CLG","CQ","CW","DLD","DLVD", "DR","DX","ES","FB","FM","GA","GM","GN","GND","GUD","HI","HR","HV","HW", "K","LID","MA","MILS","MSG","N","NCS","ND","NIL","NM","NR","NW","OB","OC", "OM","OP","OPR","OT","PBL","PSE","PWR","PX","QRG","QRH","QRI","QRJ","QRK", "QRL","QRM","QRN","QRO","QRP","QRQ","QRS","QRT","QRU","QRV","QRW","QRX", "QRY","QRZ","QSA","QSB","QSD","QSG","QSK","QSL","QSM","QSN","QSO","QSP", "QST","QSU","QSW","QSX","QSY","QSZ","QTA","QTB","QTC","QTH","QTR","R", "RCD","RCVR","REF","RFI","RIG","RTTY","RX","SASE","SED","SIG","SKED","SRI", "SSB","SVC","T","TFC","TKS","TMW","TNX","TT","TU","TVI","TX","TXT","UR", "URS","VFO","VY","WA","WB","WD","WDS","WKD","WKG","WL","WUD","WX","XCVR", "XMTR","XTAL","XYL","YL","BURO","HPE","CU","SN","TEST","TEMP","MNI","RST", "599","5NN","559","CPY","DE","OK","RPT","ANI","BCNU","BD","BLV","CC","CK", "CNT","CO","CONDX","CPSE","CRD","CUD","CUAGN","CUL","ELBUG","ENUF","FER", "FONE","FREQ","GB","GD","GE","HVY","II","INPT","LSN","PA","PP","RPRT","RPT", "SA","STN","SUM","SWL","TRX","WID");
 
-
+## @method rnd($max)
+# Return a random number in interval [0:max]
+# @param max The maximal value
 sub rnd
 {
 	my $max = shift;
@@ -22,16 +25,27 @@ sub rnd
 	return $rnd;
 }
 
+## @method rnd_words($num_words,$rwords_array)
+# Return a list of random words
+# @param Number of words to return
+# @param Reference to an array of words
 sub rnd_words
 {
 	my $num_words = shift;
 	my $rwords = shift;
 	my @words = @$rwords;
 	my $max = $#words;
-	my $rnd = rnd ($max);
-	return @words[$rnd];
+	my $wrds;
+	for (my $i = 0; $i < $num_words; $i++)
+	{
+		my $rnd = rnd ($max);
+		$wrds = "$wrds ".@words[$rnd];
+	}
+	return $wrds;
 }
+
 print rnd_words (10,\@longwords);
+
 #print Dumper @longwords;
 #	qso_call="cq cq cq de <call>/qrp /mobile <pse> k"
 #	qso_tnx="gd dr om es tnx fer call ="
