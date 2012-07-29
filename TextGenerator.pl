@@ -27,6 +27,7 @@ sub rnd
 
 ## @method rnd_words($num_words,$rwords_array)
 # Return a list of random words
+# Example: print rnd_words (10,\@longwords);
 # @param Number of words to return
 # @param Reference to an array of words
 sub rnd_words
@@ -44,16 +45,54 @@ sub rnd_words
 	return $wrds;
 }
 
-print rnd_words (10,\@longwords);
+## @method gen_call
+# Generate a plausible call sign
+sub gen_call
+{
+	my @call_appendices = ("/qrp", "/mobile");
+	my $call = "zb1hq";
+	# TBD: generate call
+	# TBD: appendices
+	return $call;
+}
 
-#print Dumper @longwords;
-#	qso_call="cq cq cq de <call>/qrp /mobile <pse> k"
-#	qso_tnx="gd dr om es tnx fer call ="
-#	qso_rst="rst <579> <579> qth nr thun thun ="
+## @method gen_rst
+# Generate a plausible rst report
+sub gen_rst
+{
+	my $rst = "599";
+	# TBD: implement random
+	return $rst;
+}
+
+my ($mycall, $myname) = ("dg6fl", "gerolf");
+
+my $qso;
+my $call = gen_call();
+
+# call
+my @qso_cq = ("cq cq cq", "cq cq", "cq cq cq cq cq");
+my @qso_cq_appendices = ("test", "pse");
+# TBD: appendices
+$qso_cq = rnd_words(1,\@qso_cq)." de $call $call k";
+$qso = "$qso $qso_cq\n";
+
+# reply
+my $ack = "r";
+my $reply = "$mycall de $call =";
+my @reply_tnx = ("gd dr om es tnx fer call =");
+
+# rst
+my @rsts = ("rst ", "ur rst is ", "rst rst is");
+my $rst_val = gen_rst();
+my $rst = rnd_words(1, \@rsts)." $rst_val $rst_val ="; # TBD: implement random number of rst_val
+$qso = "$qso $rst\n";
+
+
+#qth nr thun thun ="
 #	qso_name="<my> name <hr> is <name> ="
 #	qso_ok="hw <copy>?"
 #	qso_ok="<yourcall> de <call>"
-#	qso_reply="r"
 #	qso_reply= "tnx fer info dr <name> = "
 #	qso_rig="rig is <ft 857> es pwt abt 100 wtts ant is loop ="
 #	qso_rig="<my> rig is a <...> ="
@@ -68,3 +107,4 @@ print rnd_words (10,\@longwords);
 #	qso_temp="temp hr is abt <1> C="
 
 
+print $qso;
