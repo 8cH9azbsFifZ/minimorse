@@ -127,7 +127,7 @@ sub generate_qso
 	# reply
 	my @ack = ("r", "r r");
 	my $reply = "$mycall de $call =";
-	my @reply_tnx = ("gd dr om es tnx fer call =");
+	my @reply_tnx = ("gd dr om es tnx fer call =", "tnx fer info dr $myname");
 	my $qso_rep = rnd_words(1, \@ack)."\n$reply\n".rnd_words(1,\@reply_tnx); 
 
 	# rst
@@ -138,28 +138,36 @@ sub generate_qso
 
 	# qth 
 	my $qth = gen_qth();
-	my @loc = ("qth nr $qth", "my qth is $qth", "qth $qth");
+	my @loc = ("qth nr $qth", "my qth is $qth", "qth $qth", "my qth is $qth $qth");
+	my $qso_qth = rnd_words(1, \@loc)." =";
 
-	#qth nr thun thun ="
-	#	qso_name="<my> name <hr> is <name> ="
-	#	qso_ok="hw <copy>?"
-	#	qso_ok="<yourcall> de <call>"
-	#	qso_reply= "tnx fer info dr <name> = "
+	# endreply
+	my @endrep = ("hw?", "hw copy?", "hw dr $myname? $mycall de $call k");
+	my $qso_endreply = rnd_words(1, \@endrep);
+
+	# name
+	my @nm = ("my name hr is $name", "name hr is $name", "my name is $name", "name $name");
+	my $qso_name = rnd_words(1, \@nm);
 	#	qso_rig="rig is <ft 857> es pwt abt 100 wtts ant is loop ="
 	#	qso_rig="<my> rig is a <...> ="
 	#	qso_pwr="<my> pwr is <abt> <123> watts wtts ="
 	#	qso_ant="ant hr is gipole,gp,logper,longwire,lw,loop,mag,yagi,beam="
 	#	qso_atu="i use an <sgc 239 atu>="
-	#	qso_ok="hw dr <name>? <yourcall> de <mycall> k"
-	#	qso_tnx="mni tnx fer nice qso="
-	#	qso_qsl="qsl via buro is ok="
-	#	qso_end="<best> 73="
 	#	qso_wx="wx <clear,cloudy,rainy,snow,sunny>="
 	#	qso_temp="temp hr is abt <1> C="
+	
+	# endqso
+	my @eqso = ("mni tnx fer nice qso =", "qsl via buro is ok =", "");
+	my @eeqso = ("best 73", "73", "73 73");
+	my $qso_end = rnd_words(1, \@eqso)."\n".rnd_words(1, \@eeqso)." de $call <sk>";
 
 	$qso = "$qso $qso_cq\n";
 	$qso = "$qso $qso_rep\n";
 	$qso = "$qso $qso_rst\n";
+	$qso = "$qso $qso_qth\n";
+	$qso = "$qso $qso_name\n";
+	$qso = "$qso $qso_endreply\n";
+	$qso = "$qso $qso_end\n";
 	print $qso;
  	my $date = `date +"%Y-%m-%d_%H:%m"`;
 	chomp ($date);
