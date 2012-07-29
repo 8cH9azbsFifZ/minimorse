@@ -168,7 +168,7 @@ sub gen_wx
 
 ## @method gen_temp
 # Generate a plausible temperature
-sub gen_wx
+sub gen_temp
 {
 	my $temp = rnd(40);
 	return $temp;
@@ -253,7 +253,7 @@ sub generate_qso
 	$qso = "$qso $qso_endreply\n";
 	$qso = "$qso $qso_end\n";
 	print $qso;
- 	my $date = `date +"%Y-%m-%d_%H:%m"`;
+ 	my $date = `date +"%Y-%m-%d_%H:%M"`;
 	chomp ($date);
 	my $filename = "qso_$date";
 	generate_mp3 ($qso, $filename);
