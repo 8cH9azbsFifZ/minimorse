@@ -111,6 +111,24 @@ sub gen_qth
 	my $qth = "JO40DA";
 	return $qth;
 }
+	
+## @method gen_rig
+# Generate a plausible rig
+sub gen_rig
+{
+	my @rigs = ("ft 857", "ft 817", "ats4", "vertex vx 1700");
+	my $rig = rnd_words(1, \@rigs);
+	return $rig;
+}
+
+## @method gen_name
+# Generate a plausible name
+sub gen_name
+{
+	# TBD implement
+	my $name = "franz";
+	return $name;
+}
 
 ## @method generate_qso
 # Generate a random QSO
@@ -146,8 +164,15 @@ sub generate_qso
 	my $qso_endreply = rnd_words(1, \@endrep);
 
 	# name
+	my $name = gen_name();
 	my @nm = ("my name hr is $name", "name hr is $name", "my name is $name", "name $name");
 	my $qso_name = rnd_words(1, \@nm);
+
+	# rig 
+	my $rig = gen_rig();
+	my @rr = ("my rig is a $rig =", "rig hr is $rig =", "my rig $rig =", "rig is $rig =");
+	my $qso_rig = rnd_words(1, \@rr);
+
 	#	qso_rig="rig is <ft 857> es pwt abt 100 wtts ant is loop ="
 	#	qso_rig="<my> rig is a <...> ="
 	#	qso_pwr="<my> pwr is <abt> <123> watts wtts ="
@@ -165,6 +190,7 @@ sub generate_qso
 	$qso = "$qso $qso_rep\n";
 	$qso = "$qso $qso_rst\n";
 	$qso = "$qso $qso_qth\n";
+	$qso = "$qso $qso_rig\n";
 	$qso = "$qso $qso_name\n";
 	$qso = "$qso $qso_endreply\n";
 	$qso = "$qso $qso_end\n";
