@@ -84,8 +84,9 @@ my @reply_tnx = ("gd dr om es tnx fer call =");
 
 # rst
 my @rsts = ("rst ", "ur rst is ", "rst rst is");
-my $rst_val = gen_rst();
-my $rst = rnd_words(1, \@rsts)." $rst_val $rst_val ="; # TBD: implement random number of rst_val
+my $rv = gen_rst();
+my @rvl = ("$rv", "$rv $rv", "$rv $rv $rv");
+my $rst = rnd_words(1, \@rsts)." ".rnd_words(1,\@rvl)." =";
 $qso = "$qso $rst\n";
 
 
