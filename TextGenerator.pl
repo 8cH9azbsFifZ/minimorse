@@ -55,13 +55,33 @@ sub rnd_words
 	return $wrds;
 }
 
+## @method rnd_letter
+# Return a random letter
+sub rnd_letter
+{
+	my $letters = "abcdefghijklmnopqrstuvwxyz";
+	my $r = rnd(28); # number bigger than 24, because we want to omit some letters :)
+	my $l = substr $letters, $r, 1;
+	return $l;
+}
+
+## @method rnd_number
+# Return a random number 
+# FIXME: a bad useless function - use it anyway for symmetry :)
+sub rnd_number
+{
+	my $numbers = "0123456789";
+	my $r = rnd(10);
+	my $l = substr $numbers, $r, 1;
+	return $l;
+}
+
 ## @method gen_call
 # Generate a plausible call sign
 sub gen_call
 {
 	my @call_appendices = ("/qrp", "/mobile");
-	my $call = "zb1hq";
-	# TBD: generate call
+	my $call = rnd_letter().rnd_letter().rnd_number().rnd_letter().rnd_letter();
 	# TBD: appendices
 	return $call;
 }
@@ -268,6 +288,5 @@ sub generate_qso
 	my $filename = $outdir."qso_$date.mp3";
 	generate_mp3 ($qso, $filename);
 }
-
 
 generate_qso();
