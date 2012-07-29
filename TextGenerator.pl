@@ -1,21 +1,6 @@
 #!/usr/bin/perl
 
-my $longwords=["somewhere","newspaper","wonderful","exchange","household","grandfather","overlooked","depending","movement",
-"handsome","contained","amounting","homestead","workmanship","production","discovered","preventing","misplaced","requested",
-"breakfast","department","investment","throughout","furnishing","regulation","forwarded","friendship","herewith","foundation",
-"deportment","geography","important","lemonade","graduation","federated","educational","handkerchief","conversation","arrangement",
-"nightgown","commercial","exceptional","prosperity","subscription","visionary","federation","heretofore","ingredients","certificate",
-"pneumonia","interview","knowledge","stockholders","property","chaperone","permanently","demonstrated","immediately","responsible",
-"Chautauqua","candidacy","supervisor","independent","strawberry","epidemics","specification","agricultural","catalogues","phosphorus",
-"schedules","rheumatism","temperature","circumstances","convenience","Pullman","trigonometry","bourgeoisie","slenderize","camouflage",
-"broadcast","defamatory","ramshackle","bimonthly","predetermined","clemency","beleaguered","voluptuous","intoxicating","depository",
-"pseudonym","indescribable","hieroglyphics","morphologist","Yugoslavia","cynosure","parallelogram","pleasurable","toxicology","bassoonist",
-"influenza"];
-die;
-
-
-
-
+my $longwords=["somewhere","newspaper","wonderful","exchange","household","grandfather","overlooked","depending","movement", "handsome","contained","amounting","homestead","workmanship","production","discovered","preventing","misplaced","requested", "breakfast","department","investment","throughout","furnishing","regulation","forwarded","friendship","herewith","foundation", "deportment","geography","important","lemonade","graduation","federated","educational","handkerchief","conversation","arrangement", "nightgown","commercial","exceptional","prosperity","subscription","visionary","federation","heretofore","ingredients","certificate", "pneumonia","interview","knowledge","stockholders","property","chaperone","permanently","demonstrated","immediately","responsible", "Chautauqua","candidacy","supervisor","independent","strawberry","epidemics","specification","agricultural","catalogues","phosphorus", "schedules","rheumatism","temperature","circumstances","convenience","Pullman","trigonometry","bourgeoisie","slenderize","camouflage", "broadcast","defamatory","ramshackle","bimonthly","predetermined","clemency","beleaguered","voluptuous","intoxicating","depository", "pseudonym","indescribable","hieroglyphics","morphologist","Yugoslavia","cynosure","parallelogram","pleasurable","toxicology","bassoonist", "influenza"];
 my $prefixes=["un","ex","re","de","dis","mis","con","com","for","per","sub","pur","pro","post","anti","para","fore","coun","susp","extr","trans"];
 my $suffixes=["ly","ing","ify","ally","tial","ful","ure","sume","sult","jure","logy","gram","hood","graph","ment","pose","pute","tain", "ture","cient","spect","quire","ulate","ject","ther"];
 my $words100=["a","an","the","this","these","that","some","all","any","every","who","which","what","such","other","I","me","my","we", "us","our","you","your","he","him","his","she","her","it","its","they","them","their","man","men","people","time","work","well","May", "will","can","one","two","great","little","first","at","by","on","upon","over","before","to","from","with","in","into","out","for","of", "about","up","when","then","now","how","so","like","as","well","very","only","no","not","more","there","than","and","or","if","but","be", "am","is","are","was","were","been","has","have","had","may","can","could","will","would","shall","should","must","say","said","like","go", "come","do","made","work"];
@@ -28,7 +13,16 @@ my $words500_8=["important","themselves","Washington","government","something","
 my $words_qrp=[ "+","73","88","AA","AB","ABT","ADR","AGN","AM","ANT","AS","B4","BCI", "BCL","BK","BN","BUG","C","CFM","CL","CLD","CLG","CQ","CW","DLD","DLVD", "DR","DX","ES","FB","FM","GA","GM","GN","GND","GUD","HI","HR","HV","HW", "K","LID","MA","MILS","MSG","N","NCS","ND","NIL","NM","NR","NW","OB","OC", "OM","OP","OPR","OT","PBL","PSE","PWR","PX","QRG","QRH","QRI","QRJ","QRK", "QRL","QRM","QRN","QRO","QRP","QRQ","QRS","QRT","QRU","QRV","QRW","QRX", "QRY","QRZ","QSA","QSB","QSD","QSG","QSK","QSL","QSM","QSN","QSO","QSP", "QST","QSU","QSW","QSX","QSY","QSZ","QTA","QTB","QTC","QTH","QTR","R", "RCD","RCVR","REF","RFI","RIG","RTTY","RX","SASE","SED","SIG","SKED","SRI", "SSB","SVC","T","TFC","TKS","TMW","TNX","TT","TU","TVI","TX","TXT","UR", "URS","VFO","VY","WA","WB","WD","WDS","WKD","WKG","WL","WUD","WX","XCVR", "XMTR","XTAL","XYL","YL","BURO","HPE","CU","SN","TEST","TEMP","MNI","RST", "599","5NN","559","CPY","DE","OK","RPT","ANI","BCNU","BD","BLV","CC","CK", "CNT","CO","CONDX","CPSE","CRD","CUD","CUAGN","CUL","ELBUG","ENUF","FER", "FONE","FREQ","GB","GD","GE","HVY","II","INPT","LSN","PA","PP","RPRT","RPT", "SA","STN","SUM","SWL","TRX","WID"];
 
 
+sub rnd
+{
+	my $max = shift;
+	my $rnd_01 = rand; # random number in [0;1]
+	my $rnd = int ($rnd_01*($max+1));
+	$rnd = $max if $rnd > $max;
+	return $rnd;
+}
 
+print rnd(12);
 #	qso_call="cq cq cq de <call>/qrp /mobile <pse> k"
 #	qso_tnx="gd dr om es tnx fer call ="
 #	qso_rst="rst <579> <579> qth nr thun thun ="
