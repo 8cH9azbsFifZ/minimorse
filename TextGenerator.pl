@@ -52,8 +52,9 @@ sub rnd_words
 	for (my $i = 0; $i < $num_words; $i++)
 	{
 		my $rnd = rnd ($max);
-		$wrds = "$wrds ".@words[$rnd];
+		$wrds = "$wrds".@words[$rnd]." ";
 	}
+	chop ($wrds);
 	return $wrds;
 }
 
@@ -220,7 +221,7 @@ sub generate_qso
 
 	# rst
 	my $rv = gen_rst();
-	my @rsts = ("rst ", "ur rst is ", "rst rst is");
+	my @rsts = ("rst", "ur rst is", "rst rst is");
 	my @rvl = ("$rv", "$rv $rv", "$rv $rv $rv");
 	my $qso_rst = rnd_words(1, \@rsts)." ".rnd_words(1,\@rvl)." =";
 
@@ -270,20 +271,21 @@ sub generate_qso
 	# ordered QSO
 	my @queue = ($qso_rst, $qso_qth, $qso_rig, $qso_name, $qso_pwr, $qso_ant, $qso_wx);
 	# TBD: create random order
-	$qso = "$qso $qso_cq\n";
-	$qso = "$qso $qso_rep\n";
-	$qso = "$qso $qso_rst\n";
-	$qso = "$qso $qso_endreply\n";
-	$qso = "$qso $qso_rep2\n";
-	$qso = "$qso $qso_qth\n";
-	$qso = "$qso $qso_rig\n";
-	$qso = "$qso $qso_name\n";
-	$qso = "$qso $qso_pwr\n";
-	$qso = "$qso $qso_ant\n";
-	$qso = "$qso $qso_wx\n";
-	$qso = "$qso $qso_end\n";
+	$qso = "$qso$qso_cq\n";
+	$qso = "$qso$qso_rep\n";
+	$qso = "$qso$qso_rst\n";
+	$qso = "$qso$qso_endreply\n";
+	$qso = "$qso$qso_rep2\n";
+	$qso = "$qso$qso_qth\n";
+	$qso = "$qso$qso_rig\n";
+	$qso = "$qso$qso_name\n";
+	$qso = "$qso$qso_pwr\n";
+	$qso = "$qso$qso_ant\n";
+	$qso = "$qso$qso_wx\n";
+	$qso = "$qso$qso_end\n";
 
 	print $qso;
+	die;
 
 	# Create mp3
  	my $date = `date +"%Y-%m-%d_%H:%M:%S"`;
