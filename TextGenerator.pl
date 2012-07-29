@@ -82,9 +82,8 @@ sub rnd_number
 # Generate a plausible call sign
 sub gen_call
 {
-	my @call_appendices = ("/qrp", "/mobile");
-	my $call = rnd_letter().rnd_letter().rnd_number().rnd_letter().rnd_letter();
-	# TBD: appendices
+	my @call_appendices = ("/qrp", "/mobile","","","","","","","",""); #multiple "" to simulate propability density
+	my $call = rnd_letter().rnd_letter().rnd_number().rnd_letter().rnd_letter().rnd_words(1,\@call_appendices);
 	return $call;
 }
 
@@ -92,8 +91,7 @@ sub gen_call
 # Generate a plausible rst report
 sub gen_rst
 {
-	my $rst = "599";
-	# TBD: implement random
+	my $rst = rnd(5).rnd(9).rnd(9);
 	return $rst;
 }
 
@@ -106,16 +104,17 @@ sub generate_mp3
 {
 	my $text = shift;
 	my $outfile = shift;
-	my $infile = "test.txt";
+	my $infile = "test.txt";# FIXME use real temp file
 	open (FILE, ">$infile") or die "Cannot open $infile for writing.\n";
 	print FILE $text;
 	close (FILE);
-	my $tempoutfile = "test"; #0000.mp3 will be added by ebook2cw
-	my $tempoutfile_ebook2cw = "$tempoutfile"."0000.mp3";
+	my $tempoutfile = "test"; 
+	my $tempoutfile_ebook2cw = "$tempoutfile"."0000.mp3"; #0000.mp3 will be added by ebook2cw
 	my $author = "DG6FL";
-	my $title = "Morse Code";
+	my $title = "Morse Code"; # FIXME add real title
 	my $year = 2012;
 	# FIXME: check if exists
+	# FIXME: add cover art
 	my $cmd = "ebook2cw $snr -w $wpm -e $ewpm -o $tempoutfile -a \"$author\" -t \"$title\" -k \"$comment\" -y $year $infile";
 	`$cmd`;
 	`rm $infile`;
