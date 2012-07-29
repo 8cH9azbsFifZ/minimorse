@@ -130,6 +130,42 @@ sub gen_name
 	return $name;
 }
 
+## @method gen_pwr
+# Generate a plausible power
+sub gen_pwr
+{
+	my $pwr = rnd (200);
+	# FIXME: modulo 5 numbers!
+	return $pwr;
+}
+
+## @method gen_ant
+# Generate a plausible antenna
+sub gen_ant
+{
+	my @a = ("dipole","gp","logper","longwire","lw","loop","mag","yagi","beam");
+	my $ant = rnd_words(1, \@a);	
+	return $ant;
+}
+
+## @method gen_atu
+# Generate a plausible antenna tuner
+sub gen_atu 
+{
+	my @a = ("sgc 237","elecraft t1", "z match");
+	my $atu = rnd_words(1, \@a);
+	return $atu;
+}
+
+## @method gen_wx
+# Generate a plausible weather
+sub gen_wx
+{
+	my @w = ("clear","cloudy","rainy","snow","sunny");
+	my $wx = rnd_words(1, \@w);
+	return $wx;
+}
+
 ## @method generate_qso
 # Generate a random QSO
 sub generate_qso 
@@ -156,8 +192,8 @@ sub generate_qso
 
 	# qth 
 	my $qth = gen_qth();
-	my @loc = ("qth nr $qth", "my qth is $qth", "qth $qth", "my qth is $qth $qth");
-	my $qso_qth = rnd_words(1, \@loc)." =";
+	my @loc = ("qth nr $qth =", "my qth is $qth =", "qth $qth =", "my qth is $qth $qth =", "");
+	my $qso_qth = rnd_words(1, \@loc);
 
 	# endreply
 	my @endrep = ("hw?", "hw copy?", "hw dr $myname? $mycall de $call k");
@@ -165,20 +201,28 @@ sub generate_qso
 
 	# name
 	my $name = gen_name();
-	my @nm = ("my name hr is $name", "name hr is $name", "my name is $name", "name $name");
+	my @nm = ("my name hr is $name =", "name hr is $name =", "my name is $name =", "name $name =", "");
 	my $qso_name = rnd_words(1, \@nm);
 
 	# rig 
 	my $rig = gen_rig();
-	my @rr = ("my rig is a $rig =", "rig hr is $rig =", "my rig $rig =", "rig is $rig =");
+	my @rr = ("my rig is a $rig =", "rig hr is $rig =", "my rig $rig =", "rig is $rig =", "");
 	my $qso_rig = rnd_words(1, \@rr);
 
-	#	qso_rig="rig is <ft 857> es pwt abt 100 wtts ant is loop ="
-	#	qso_rig="<my> rig is a <...> ="
-	#	qso_pwr="<my> pwr is <abt> <123> watts wtts ="
-	#	qso_ant="ant hr is gipole,gp,logper,longwire,lw,loop,mag,yagi,beam="
-	#	qso_atu="i use an <sgc 239 atu>="
-	#	qso_wx="wx <clear,cloudy,rainy,snow,sunny>="
+	# power
+	my $pwr = gen_pwr();
+	my @pp = ("pwr abt $pwr =", "pwr is $pwr =", "sending out $pwr watts =", "my pwr is abt $pwr wtts =", "");
+	my $qso_pwr = rnd_words(1, \@pp);
+
+	# antenna
+	my $ant = gen_ant();
+	my $atu = gen_atu();
+	my @aa = ("ant is $ant =", "my ant is a $ant =", "ant hr is a $ant =", "");
+	my @ab = ("i use an $atu =", ""); 
+	my $qso_ant = rnd_words(1, \@aa)." ".rnd_words(1, \@ab);
+
+	# weather
+	my $weather = gen_wx ();
 	#	qso_temp="temp hr is abt <1> C="
 	
 	# endqso
@@ -192,6 +236,9 @@ sub generate_qso
 	$qso = "$qso $qso_qth\n";
 	$qso = "$qso $qso_rig\n";
 	$qso = "$qso $qso_name\n";
+	$qso = "$qso $qso_pwr\n";
+	$qso = "$qso $qso_ant\n";
+	$qso = "$qso $qso_wx\n";
 	$qso = "$qso $qso_endreply\n";
 	$qso = "$qso $qso_end\n";
 	print $qso;
