@@ -166,6 +166,14 @@ sub gen_wx
 	return $wx;
 }
 
+## @method gen_temp
+# Generate a plausible temperature
+sub gen_wx
+{
+	my $temp = rnd(40);
+	return $temp;
+}
+
 ## @method generate_qso
 # Generate a random QSO
 sub generate_qso 
@@ -222,8 +230,11 @@ sub generate_qso
 	my $qso_ant = rnd_words(1, \@aa)." ".rnd_words(1, \@ab);
 
 	# weather
-	my $weather = gen_wx ();
-	#	qso_temp="temp hr is abt <1> C="
+	my $weather = gen_wx();
+	my $temp = gen_temp();
+	my @ww = ("wx hr is $weather =", "weather is $weather =", "wx $weather =", "");
+	my @wy = ("temp hr is abt $temp C =", "temp is $temp C =", "");
+	my $qso_wx = rnd_words(1,\@ww)." ".rnd_words(1,\@wy);
 	
 	# endqso
 	my @eqso = ("mni tnx fer nice qso =", "qsl via buro is ok =", "");
