@@ -285,7 +285,6 @@ sub generate_qso
 	$qso = "$qso$qso_end\n";
 
 	print $qso;
-	die;
 
 	# Create mp3
  	my $date = `date +"%Y-%m-%d_%H:%M:%S"`;
