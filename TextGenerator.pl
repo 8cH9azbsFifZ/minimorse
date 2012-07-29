@@ -6,6 +6,7 @@ use Data::Dumper;
 ($wpm, $ewpm) = (18, 18);
 #$snr = "-N \"9\""; # SNR noise -10 .. 10 dB
 
+$outdir = "./mp3s/";
 
 # List of the most common words
 my @longwords=("somewhere","newspaper","wonderful","exchange","household","grandfather","overlooked","depending","movement", "handsome","contained","amounting","homestead","workmanship","production","discovered","preventing","misplaced","requested", "breakfast","department","investment","throughout","furnishing","regulation","forwarded","friendship","herewith","foundation", "deportment","geography","important","lemonade","graduation","federated","educational","handkerchief","conversation","arrangement", "nightgown","commercial","exceptional","prosperity","subscription","visionary","federation","heretofore","ingredients","certificate", "pneumonia","interview","knowledge","stockholders","property","chaperone","permanently","demonstrated","immediately","responsible", "Chautauqua","candidacy","supervisor","independent","strawberry","epidemics","specification","agricultural","catalogues","phosphorus", "schedules","rheumatism","temperature","circumstances","convenience","Pullman","trigonometry","bourgeoisie","slenderize","camouflage", "broadcast","defamatory","ramshackle","bimonthly","predetermined","clemency","beleaguered","voluptuous","intoxicating","depository", "pseudonym","indescribable","hieroglyphics","morphologist","Yugoslavia","cynosure","parallelogram","pleasurable","toxicology","bassoonist", "influenza");
@@ -262,9 +263,9 @@ sub generate_qso
 	print $qso;
 
 	# Create mp3
- 	my $date = `date +"%Y-%m-%d_%H:%M"`;
+ 	my $date = `date +"%Y-%m-%d_%H:%M:%S"`;
 	chomp ($date);
-	my $filename = "qso_$date";
+	my $filename = $outdir."qso_$date.mp3";
 	generate_mp3 ($qso, $filename);
 }
 
