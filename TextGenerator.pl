@@ -1,6 +1,12 @@
 #!/usr/bin/perl
 use Data::Dumper;
 
+# Global variables for configuration
+($mycall, $myname) = ("dg6fl", "gerolf");
+($wpm, $ewpm) = (18, 18);
+$snr = "-5"; # SNR noise -10 .. 10 dB
+
+
 # List of the most common words
 my @longwords=("somewhere","newspaper","wonderful","exchange","household","grandfather","overlooked","depending","movement", "handsome","contained","amounting","homestead","workmanship","production","discovered","preventing","misplaced","requested", "breakfast","department","investment","throughout","furnishing","regulation","forwarded","friendship","herewith","foundation", "deportment","geography","important","lemonade","graduation","federated","educational","handkerchief","conversation","arrangement", "nightgown","commercial","exceptional","prosperity","subscription","visionary","federation","heretofore","ingredients","certificate", "pneumonia","interview","knowledge","stockholders","property","chaperone","permanently","demonstrated","immediately","responsible", "Chautauqua","candidacy","supervisor","independent","strawberry","epidemics","specification","agricultural","catalogues","phosphorus", "schedules","rheumatism","temperature","circumstances","convenience","Pullman","trigonometry","bourgeoisie","slenderize","camouflage", "broadcast","defamatory","ramshackle","bimonthly","predetermined","clemency","beleaguered","voluptuous","intoxicating","depository", "pseudonym","indescribable","hieroglyphics","morphologist","Yugoslavia","cynosure","parallelogram","pleasurable","toxicology","bassoonist", "influenza");
 my @prefixes=("un","ex","re","de","dis","mis","con","com","for","per","sub","pur","pro","post","anti","para","fore","coun","susp","extr","trans");
@@ -78,17 +84,13 @@ sub generate_mp3
 	open (FILE, ">$infile") or die "Cannot open $infile for writing.\n";
 	print FILE $text;
 	close (FILE);
-	my $outfile = "test"; #.mp3 will be added by ebook2cw
+	my $outfile = "test"; #0000.mp3 will be added by ebook2cw
 	my $author = "DG6FL";
 	my $title = "Morse Code";
 	my $year = 2012;
-	my $cmd = "ebook2cw $snr -w $wpm -e $ewpm -o $outfile -a $author -t $title -k $comment -y $year $infile";
+	my $cmd = "ebook2cw $snr -w $wpm -e $ewpm -o $outfile -a \"$author\" -t \"$title\" -k \"$comment\" -y $year $infile";
+	`$cmd`;
 }
-
-# Global variables for configuration
-my ($mycall, $myname) = ("dg6fl", "gerolf");
-my ($wpm, $ewpm) = 18, 18;
-my $snr = ""; # SNR noise -10 .. 10 dB
 
 
 # QSO Generation stuff
