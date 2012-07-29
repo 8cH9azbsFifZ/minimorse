@@ -6,6 +6,8 @@ use Data::Dumper;
 ($wpm, $ewpm) = (18, 18);
 #$snr = "-N \"9\""; # SNR noise -10 .. 10 dB
 
+$words_repeat = 5;
+
 $outdir = "./mp3s/";
 
 # List of the most common words
@@ -289,4 +291,31 @@ sub generate_qso
 	generate_mp3 ($qso, $filename);
 }
 
+## @method generate_words($reference_wordslist)
+# Generate a mp3 for words training
+# @param $reference_wordslist A reference to an array of words
+sub generate_words
+{
+	my $wlist = shift;
+	my $num_of_words = 10;
+	my $wl = rnd_words($num_of_words, $wlist);
+	my $words; 
+	foreach my $wrd (split " ", $wl)
+	{
+		for ($i = 0; $i < $words_repeat; $i = $i+1)
+		{
+			$words = "$words $wrd" ;
+		}
+		$words = "$words =\n";
+	}
+	print $words;
+
+	# Create mp3
+ 	my $date = `date +"%Y-%m-%d_%H:%M:%S"`;
+	chomp ($date);
+	my $filename = $outdir."words_$date.mp3";
+	generate_mp3 ($words, $filename);
+}
+
 generate_qso();
+generate_words(\@words_qrp);
