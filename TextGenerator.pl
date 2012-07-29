@@ -1,6 +1,6 @@
 #!/usr/bin/perl
-
-my $longwords=["somewhere","newspaper","wonderful","exchange","household","grandfather","overlooked","depending","movement", "handsome","contained","amounting","homestead","workmanship","production","discovered","preventing","misplaced","requested", "breakfast","department","investment","throughout","furnishing","regulation","forwarded","friendship","herewith","foundation", "deportment","geography","important","lemonade","graduation","federated","educational","handkerchief","conversation","arrangement", "nightgown","commercial","exceptional","prosperity","subscription","visionary","federation","heretofore","ingredients","certificate", "pneumonia","interview","knowledge","stockholders","property","chaperone","permanently","demonstrated","immediately","responsible", "Chautauqua","candidacy","supervisor","independent","strawberry","epidemics","specification","agricultural","catalogues","phosphorus", "schedules","rheumatism","temperature","circumstances","convenience","Pullman","trigonometry","bourgeoisie","slenderize","camouflage", "broadcast","defamatory","ramshackle","bimonthly","predetermined","clemency","beleaguered","voluptuous","intoxicating","depository", "pseudonym","indescribable","hieroglyphics","morphologist","Yugoslavia","cynosure","parallelogram","pleasurable","toxicology","bassoonist", "influenza"];
+use Data::Dumper;
+my @longwords=("somewhere","newspaper","wonderful","exchange","household","grandfather","overlooked","depending","movement", "handsome","contained","amounting","homestead","workmanship","production","discovered","preventing","misplaced","requested", "breakfast","department","investment","throughout","furnishing","regulation","forwarded","friendship","herewith","foundation", "deportment","geography","important","lemonade","graduation","federated","educational","handkerchief","conversation","arrangement", "nightgown","commercial","exceptional","prosperity","subscription","visionary","federation","heretofore","ingredients","certificate", "pneumonia","interview","knowledge","stockholders","property","chaperone","permanently","demonstrated","immediately","responsible", "Chautauqua","candidacy","supervisor","independent","strawberry","epidemics","specification","agricultural","catalogues","phosphorus", "schedules","rheumatism","temperature","circumstances","convenience","Pullman","trigonometry","bourgeoisie","slenderize","camouflage", "broadcast","defamatory","ramshackle","bimonthly","predetermined","clemency","beleaguered","voluptuous","intoxicating","depository", "pseudonym","indescribable","hieroglyphics","morphologist","Yugoslavia","cynosure","parallelogram","pleasurable","toxicology","bassoonist", "influenza");
 my $prefixes=["un","ex","re","de","dis","mis","con","com","for","per","sub","pur","pro","post","anti","para","fore","coun","susp","extr","trans"];
 my $suffixes=["ly","ing","ify","ally","tial","ful","ure","sume","sult","jure","logy","gram","hood","graph","ment","pose","pute","tain", "ture","cient","spect","quire","ulate","ject","ther"];
 my $words100=["a","an","the","this","these","that","some","all","any","every","who","which","what","such","other","I","me","my","we", "us","our","you","your","he","him","his","she","her","it","its","they","them","their","man","men","people","time","work","well","May", "will","can","one","two","great","little","first","at","by","on","upon","over","before","to","from","with","in","into","out","for","of", "about","up","when","then","now","how","so","like","as","well","very","only","no","not","more","there","than","and","or","if","but","be", "am","is","are","was","were","been","has","have","had","may","can","could","will","would","shall","should","must","say","said","like","go", "come","do","made","work"];
@@ -22,7 +22,17 @@ sub rnd
 	return $rnd;
 }
 
-print rnd(12);
+sub rnd_words
+{
+	my $num_words = shift;
+	my $rwords = shift;
+	my @words = @$rwords;
+	my $max = $#words;
+	my $rnd = rnd ($max);
+	return @words[$rnd];
+}
+print rnd_words (10,\@longwords);
+#print Dumper @longwords;
 #	qso_call="cq cq cq de <call>/qrp /mobile <pse> k"
 #	qso_tnx="gd dr om es tnx fer call ="
 #	qso_rst="rst <579> <579> qth nr thun thun ="
