@@ -5,18 +5,23 @@ Why use a complicated program to obtain/improve your cw skills? Morse
 code is simple - and so is this program. This small set of scripts will 
 generate mp3 files for training the morse code.
 
+This toolset contains two scripts:
+- koch-trainer
+- words-trainer
 
-Description TextGenerator.pl
-============================
+
+words-trainer
+=============
 This small perl script will generate mp3 files containing qso texts or 
 the most common words.
 
 Dependencies:
 - ebook2cw
+- eyed3
 
 
-Description morse.py
-====================
+koch-trainer
+============
 This small python script will generate mp3 and corresponding text files
 for learning / training the morse code. It follows the method (1) for
 teaching the characters and the method described in (2) for improving
