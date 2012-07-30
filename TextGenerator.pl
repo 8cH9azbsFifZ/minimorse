@@ -10,6 +10,14 @@ $words_repeat = 5;
 
 $outdir = "./mp3s/";
 
+# External dependencies
+my $ebook2cw = `which ebook2cw`;
+chomp ($ebook2cw);
+-x $ebook2cw or die "Cannot run ebook2cw: $ebook2cw.\n";
+my $eyed3 = `which eyed3`;
+chomp ($eyed3);
+-x $eyed3 or die "Cannot run eyed3: $eyed3.\n";
+
 # List of the most common words
 my @longwords=("somewhere","newspaper","wonderful","exchange","household","grandfather","overlooked","depending","movement", "handsome","contained","amounting","homestead","workmanship","production","discovered","preventing","misplaced","requested", "breakfast","department","investment","throughout","furnishing","regulation","forwarded","friendship","herewith","foundation", "deportment","geography","important","lemonade","graduation","federated","educational","handkerchief","conversation","arrangement", "nightgown","commercial","exceptional","prosperity","subscription","visionary","federation","heretofore","ingredients","certificate", "pneumonia","interview","knowledge","stockholders","property","chaperone","permanently","demonstrated","immediately","responsible", "Chautauqua","candidacy","supervisor","independent","strawberry","epidemics","specification","agricultural","catalogues","phosphorus", "schedules","rheumatism","temperature","circumstances","convenience","Pullman","trigonometry","bourgeoisie","slenderize","camouflage", "broadcast","defamatory","ramshackle","bimonthly","predetermined","clemency","beleaguered","voluptuous","intoxicating","depository", "pseudonym","indescribable","hieroglyphics","morphologist","Yugoslavia","cynosure","parallelogram","pleasurable","toxicology","bassoonist", "influenza");
 my @prefixes=("un","ex","re","de","dis","mis","con","com","for","per","sub","pur","pro","post","anti","para","fore","coun","susp","extr","trans");
@@ -99,31 +107,39 @@ sub gen_rst
 }
 
 
-## @method generate_mp3($string,$outfile)
+## @method generate_mp3($string,$outfile,$title)
 # Generate an mp3 file $outfile using ebook2cw of $string.
 # @param $string The text to convert into cw
 # @param $outfile The filename of the final mp3
+# @param $title Title for the mp3
 sub generate_mp3
 {
 	my $text = shift;
 	my $outfile = shift;
+	my $title = shift;
+
+	# Write temp file with text
 	my $infile = "test.txt";# FIXME use real temp file
 	open (FILE, ">$infile") or die "Cannot open $infile for writing.\n";
 	print FILE $text;
 	close (FILE);
+	
+	# Create the MP3
 	my $tempoutfile = "test"; 
 	my $tempoutfile_ebook2cw = "$tempoutfile"."0000.mp3"; #0000.mp3 will be added by ebook2cw
 	my $author = "DG6FL";
-	my $title = "Morse Code"; # FIXME add real title
+	my $album = "Mini Morse";
 	my $year = 2012;
 	# FIXME: add cover art
-	my $ebook2cw = `which ebook2cw`;
-	chomp ($ebook2cw);
-	-x $ebook2cw or die "Cannot run ebook2cw: $ebook2cw.\n";
 	my $cmd = "ebook2cw $snr -w $wpm -e $ewpm -o $tempoutfile -a \"$author\" -t \"$title\" -k \"$comment\" -y $year $infile";
 	`$cmd`;
 	`rm $infile`;
 	`mv $tempoutfile_ebook2cw $outfile`;
+
+	# Adjust ID3 tags
+	my $cmd = "$eyed3 --year=$year --title=\"$title\" --album=\"$album\" --artist=\"$author\" --add-image=\"cover.jpg\":FRONT_COVER $outfile";
+	print $cmd;
+	`$cmd`;
 }
 
 
@@ -290,7 +306,7 @@ sub generate_qso
  	my $date = `date +"%Y-%m-%d_%H:%M:%S"`;
 	chomp ($date);
 	my $filename = $outdir."qso_$date.mp3";
-	generate_mp3 ($qso, $filename);
+	generate_mp3 ($qso, $filename, "Example QSO");
 }
 
 ## @method generate_words($reference_wordslist)
@@ -316,7 +332,7 @@ sub generate_words
  	my $date = `date +"%Y-%m-%d_%H:%M:%S"`;
 	chomp ($date);
 	my $filename = $outdir."words_$date.mp3";
-	generate_mp3 ($words, $filename);
+	generate_mp3 ($words, $filename, "Words QSO");
 }
 
 generate_qso();
