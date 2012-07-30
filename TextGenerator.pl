@@ -308,13 +308,14 @@ sub generate_qso
 	generate_mp3 ($qso, $filename, "Example QSO");
 }
 
-## @method generate_words($reference_wordslist,$title)
+## @method generate_words($reference_wordslist,$fileprefix,$title)
 # Generate a mp3 for words training
 # @param $reference_wordslist A reference to an array of words
+# @param $fileprefix Prefix for the filename
 # @param $title Title of the MP3
 sub generate_words
 {
-	my ($wlist, $title) = @_;
+	my ($wlist, $fileprefix, $title) = @_;
 	my $num_of_words = 10;
 	my $wl = rnd_words($num_of_words, $wlist);
 	my $words; 
@@ -331,10 +332,10 @@ sub generate_words
 	# Create mp3
  	my $date = `date +"%Y-%m-%d_%H:%M:%S"`;
 	chomp ($date);
-	my $filename = $outdir."words_$date.mp3";
+	my $filename = $outdir."words_".$fileprefix."_$date.mp3";
 	generate_mp3 ($words, $filename, $title);
 }
 
 generate_qso();
-generate_words(\@words_qrp, "Words: Abbreviations");
-generate_words(\@words_100, "Words: 100 most common");
+generate_words(\@words_qrp, "qrp", "Words: Abbreviations");
+generate_words(\@words100, "100", "Words: 100 most common");
