@@ -1,4 +1,6 @@
 #!/usr/bin/python
+# (C) Copyright Gerolf Ziegenhain 2008
+
 # FIXME: include the words from the text generator class
 import wave, struct, os, sys, time
 from math import *
