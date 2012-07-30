@@ -137,12 +137,6 @@ sub generate_mp3
 	`mv $tempoutfile_ebook2cw $outfile`;
 
 	# Adjust ID3 tags
-	my $cmd = "$eyed3 --year=$year --title=\"$title\" --album=\"$album\" --artist=\"$author\" $outfile";
-	#`$cmd`;
-	my $cmd = "$eyed3 --to-v2.3 $outfile";
-	#`$cmd`;
-	my $cmd = "$eyed3 --add-image=\"cover.jpg\":FRONT_COVER $outfile";
-	#`$cmd`;
 	my $cmd = "$eyed3 --to-v2.3 --year=$year --title=\"$title\" --album=\"$album\" --artist=\"$author\" --add-image=\"cover.jpg\":FRONT_COVER $outfile";
 	`$cmd`;
 }
