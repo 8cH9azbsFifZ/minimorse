@@ -2,3 +2,4 @@
 *.wav
 *.mp3
 koch*.txt
+.DS_Store
